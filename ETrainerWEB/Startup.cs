@@ -1,6 +1,8 @@
+using E_Trainer_WEB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ETrainerWEB
+
+namespace E_Trainer_WEB
 {
     public class Startup
     {
@@ -25,11 +28,11 @@ namespace ETrainerWEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<ETrainerDBContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ETrainerWEB", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_Trainer_WEB", Version = "v1" });
             });
         }
 
@@ -40,7 +43,7 @@ namespace ETrainerWEB
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ETrainerWEB v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_Trainer_WEB v1"));
             }
 
             app.UseRouting();
