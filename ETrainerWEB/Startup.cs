@@ -1,20 +1,15 @@
-using E_Trainer_WEB.Data;
+using System.Text.Json.Serialization;
+using ETrainerWEB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
-namespace E_Trainer_WEB
+namespace ETrainerWEB
 {
     public class Startup
     {
@@ -28,7 +23,9 @@ namespace E_Trainer_WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ETrainerDBContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<ETrainerDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
+            /*services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);*/
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

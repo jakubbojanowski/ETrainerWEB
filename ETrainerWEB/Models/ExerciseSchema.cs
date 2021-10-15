@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace E_Trainer_WEB.Models
+namespace ETrainerWEB.Models
 {
     public class ExerciseSchema
     {
-        public int id { set; get; }
-        public int userId { set; get; }
-        public int typeId { set; get; }
-        public string properties { set; get; }
+        public ExerciseSchema()
+        {
+            WorkoutSchemasExercisesSchemas = new List<WorkoutSchemasExercisesSchemas>();
+        }
 
+        public int Id { set; get; }
+        public string Name { set; get; }
+        public int UserId { set; get; }
+        public int TypeId { set; get; }
+        public string Properties { set; get; }
+        public virtual ICollection<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }

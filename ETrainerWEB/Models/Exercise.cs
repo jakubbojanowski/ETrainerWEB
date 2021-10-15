@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace E_Trainer_WEB.Models
+﻿namespace ETrainerWEB.Models
 {
     public class Exercise
     {
-        public int id { set; get; }
-        public string name { set; get; }
-        public int workoutId { set; get; }
-        public int typeId { set; get; }
-        public string properties { set; get; }
+        public int Id { set; get; }
+        public string Name { set; get; }
+        public int WorkoutId { set; get; }
+        public int TypeId { set; get; }
+        public string Properties { set; get; }
 
     }
 }

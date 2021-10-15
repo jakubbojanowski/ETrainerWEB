@@ -1,15 +1,11 @@
-﻿using E_Trainer_WEB.Models;
+﻿using ETrainerWEB.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace E_Trainer_WEB.Data
+namespace ETrainerWEB.Data
 {
-    public partial class ETrainerDBContext : DbContext
+    public partial class ETrainerDbContext : DbContext
     {
-        public ETrainerDBContext(DbContextOptions<ETrainerDBContext> options) : base(options)
+        public ETrainerDbContext(DbContextOptions<ETrainerDbContext> options) : base(options)
         {
 
         }
@@ -20,6 +16,13 @@ namespace E_Trainer_WEB.Data
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<DishesIngredients> DishesIngredients { get; set; }
+        public DbSet<MealsDishes> MealsDishes { get; set; }
+        public DbSet<User> Users { get; set; }
+        //public DbSet<Friends> Friends { get; set; }
+        public DbSet<Measurement> Measurements { get; set; }
+        public DbSet<WorkoutSchema> WorkoutSchemas { get; set; }
+        public DbSet<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -29,22 +32,35 @@ namespace E_Trainer_WEB.Data
             {
                 entity.HasMany(b => b.Exercises)
                     .WithOne()
-                    .HasForeignKey(e => e.workoutId);
+                    .HasForeignKey(e => e.WorkoutId);
             });
             
             modelBuilder.Entity<ExerciseType>(entity =>
             {
                 entity.HasMany(b => b.Exercises)
                     .WithOne()
-                    .HasForeignKey(e => e.typeId);
+                    .HasForeignKey(e => e.TypeId);
             });
             
             modelBuilder.Entity<ExerciseType>(entity =>
             {
                 entity.HasMany(b => b.ExerciseSchemas)
                     .WithOne()
-                    .HasForeignKey(e => e.typeId);
+                    .HasForeignKey(e => e.TypeId);
             });
+
+            /*modelBuilder.Entity<Friends>()
+                .HasKey(f => new { f.UserId, f.FriendId });
+            
+            modelBuilder.Entity<Friends>()
+                .HasOne(f => f.User)
+                .WithMany(f => f.Friends)
+                .HasForeignKey(f => f.UserId);
+
+            modelBuilder.Entity<Friends>()
+                .HasOne(f => f.Friend)
+                .WithMany(f => f.Friended)
+                .HasForeignKey(f => f.FriendId);*/
 
             OnModelCreatingPartial(modelBuilder);
         }

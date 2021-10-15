@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace E_Trainer_WEB.Models
+namespace ETrainerWEB.Models
 {
     public class ExerciseType
     {
@@ -11,12 +8,10 @@ namespace E_Trainer_WEB.Models
         {
             Exercises = new List<Exercise>();
             ExerciseSchemas = new List<ExerciseSchema>();
-
         }
-        public int id { set; get; }
-        public string name { set; get; }
-        public string properties { set; get; }
-
+        public int Id { set; get; }
+        public string Name { set; get; }
+        public string Properties { set; get; }
         public virtual ICollection<Exercise> Exercises { get; set; }
         public virtual ICollection<ExerciseSchema> ExerciseSchemas { get; set; }
 

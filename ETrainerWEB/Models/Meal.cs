@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace E_Trainer_WEB.Models
+namespace ETrainerWEB.Models
 {
     public class Meal
     {
-        public int id { set; get; }
-        public int userId { set; get; }
-        public string name { set; get; }
+        public Meal()
+        {
+            MealsDishes = new List<MealsDishes>();
+        }
+        public int Id { set; get; }
+        public int UserId { set; get; }
+        public DateTime Date { set; get; }
+        public string Name { set; get; }
+        public virtual ICollection<MealsDishes> MealsDishes { get; set; }
     }
 }

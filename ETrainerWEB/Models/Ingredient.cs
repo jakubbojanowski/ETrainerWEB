@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace E_Trainer_WEB.Models
+namespace ETrainerWEB.Models
 {
     public class Ingredient
     {
-        public int id { set; get; }
-        public int userId { set; get; }
-        public string name { set; get; }
-        public float portionWeight { set; get; }
-        public float caloricityPerGram { set; get; }
+        public Ingredient()
+        {
+            DishesIngredients = new List<DishesIngredients>();
+        }
+        public int Id { set; get; }
+        public int UserId { set; get; }
+        public string Name { set; get; }
+        public float PortionWeight { set; get; }
+        public float CaloricityPerGram { set; get; }
+        public virtual ICollection<DishesIngredients> DishesIngredients { get; set; }
 
     }
 }

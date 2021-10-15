@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace E_Trainer_WEB.Models
+
+namespace ETrainerWEB.Models
 {
     public class Workout
     {
@@ -12,10 +10,11 @@ namespace E_Trainer_WEB.Models
         {
             Exercises = new List<Exercise>();
         }
-        public int id { set; get; }
-        public string name { set; get; }
-        public int userId { set; get; }
-        public int duration { set; get; }
+        public int Id { set; get; }
+        public string Name { set; get; }
+        public int UserId { set; get; }
+        public DateTime Date { set; get; }
+        public int Duration { set; get; }
         public virtual ICollection<Exercise> Exercises { get; set; }
 
     }

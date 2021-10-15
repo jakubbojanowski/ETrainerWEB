@@ -1,28 +1,33 @@
-﻿using E_Trainer_WEB.Data;
-using E_Trainer_WEB.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ETrainerWEB.Data;
+using ETrainerWEB.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace E_Trainer_WEB.Controllers
+namespace ETrainerWEB.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("[action]")]
     public class ExerciseSchemaController : Controller
     {
-        private ETrainerDBContext _context;
-        public ExerciseSchemaController(ETrainerDBContext context)
+        private readonly ETrainerDbContext _db;
+        public ExerciseSchemaController(ETrainerDbContext db)
         {
-            _context = context;
+            _db = db;
         }
         //Get all exercise schemas
         [HttpGet]
-        public async Task<List<ExerciseSchema>> GetAllExerciseSchemas()
+        public async Task<List<ExerciseSchema>> ExerciseSchemas()
         {
-            return (await _context.ExerciseSchemas.ToListAsync()).ToList();
+            return (await _db.ExerciseSchemas.ToListAsync()).ToList();
+        }
+        //Get user's exercise schemas
+        [HttpGet("{id:int}")]
+        public async Task<List<ExerciseSchema>> UserExerciseSchemas([FromRoute]int id)
+        {
+            return (await _db.ExerciseSchemas.ToListAsync()).ToList();
         }
         ////Create new exercise schema
         //[HttpGet]
