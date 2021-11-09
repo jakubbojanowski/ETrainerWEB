@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace ETrainerWEB.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -121,30 +121,6 @@ namespace ETrainerWEB.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ExerciseSchemas_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Friends",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    FriendId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Friends", x => new { x.UserId, x.FriendId });
-                    table.ForeignKey(
-                        name: "FK_Friends_Users_FriendId",
-                        column: x => x.FriendId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Friends_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -315,6 +291,11 @@ namespace ETrainerWEB.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "ExerciseTypes",
+                columns: new[] { "Id", "Name", "Properties" },
+                values: new object[] { 1, "NazwaTypu", "XD" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DishesIngredients_DishId",
                 table: "DishesIngredients",
@@ -344,11 +325,6 @@ namespace ETrainerWEB.Migrations
                 name: "IX_ExerciseSchemas_UserId",
                 table: "ExerciseSchemas",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Friends_FriendId",
-                table: "Friends",
-                column: "FriendId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meals_UserId",
@@ -399,9 +375,6 @@ namespace ETrainerWEB.Migrations
 
             migrationBuilder.DropTable(
                 name: "Exercises");
-
-            migrationBuilder.DropTable(
-                name: "Friends");
 
             migrationBuilder.DropTable(
                 name: "MealsDishes");

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETrainerWEB", "ETrainerWEB\ETrainerWEB.csproj", "{9F2549CF-50C7-4E18-81AC-CFE352DC3DCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETrainerWEB", "ETrainerWEB\ETrainerWEB.csproj", "{9F2549CF-50C7-4E18-81AC-CFE352DC3DCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{A4439F08-5392-491B-86BC-94E620C29153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9F2549CF-50C7-4E18-81AC-CFE352DC3DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F2549CF-50C7-4E18-81AC-CFE352DC3DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F2549CF-50C7-4E18-81AC-CFE352DC3DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4439F08-5392-491B-86BC-94E620C29153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4439F08-5392-491B-86BC-94E620C29153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4439F08-5392-491B-86BC-94E620C29153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4439F08-5392-491B-86BC-94E620C29153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
