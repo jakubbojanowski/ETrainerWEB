@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
 using ETrainerWEB.Data;
+using ETrainerWEB.Models;
+using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +27,16 @@ namespace ETrainerWEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ETrainerDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
-            /*services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);*/
-            services.AddControllers();
+            services.AddSingleton<AutomapperService>();
+            services.AddScoped<PropertyCopierService<Workout>>();
+            services.AddScoped<PropertyCopierService<Exercise>>();
+            services.AddScoped<PropertyCopierService<ExerciseType>>();
+            services.AddScoped<WorkoutService>();
+            services.AddScoped<ExerciseService>();
+            services.AddScoped<ExerciseTypeService>();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>();
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_Trainer_WEB", Version = "v1" });
@@ -45,7 +55,9 @@ namespace ETrainerWEB
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

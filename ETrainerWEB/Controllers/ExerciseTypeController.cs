@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ETrainerWEB.Data;
-using ETrainerWEB.Models;
+﻿using System.Security.Claims;
+using ETrainerWEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace ETrainerWEB.Controllers
 {
@@ -13,19 +9,37 @@ namespace ETrainerWEB.Controllers
     [Route("[action]")]
     public class ExerciseTypeController : ControllerBase
     {
-        private readonly ETrainerDbContext _db;
-        public ExerciseTypeController(ETrainerDbContext db)
+        private readonly ExerciseTypeService _exerciseTypeService;
+        public ExerciseTypeController(ExerciseTypeService exerciseTypeService)
         {
-            _db = db;
+            _exerciseTypeService = exerciseTypeService;
         }
         //Get all exercise types
         [HttpGet]
-        public async Task<List<ExerciseType>> ExerciseTypes()
+        public IActionResult ExerciseTypes()
         {
-            /*var tmp =  (await _db.ExerciseTypes.ToListAsync()).ToList();
-            Dictionary<string, string> prop = new Dictionary<string, string>();
-            var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(tmp[0].Properties);*/
-            return (await _db.ExerciseTypes.ToListAsync()).ToList();
+            var result =  _exerciseTypeService.GetExercisesType().Result;
+            if(result != null) 
+                return Ok(result);
+            return NotFound();
+        } 
+        //Get exerciseType by id 
+        [HttpGet("{exerciseTypeId:int}")]
+        public IActionResult ExerciseType([FromRoute]int exerciseTypeId)
+        {
+            var result = _exerciseTypeService.GetExerciseTypeById(exerciseTypeId);
+            if(result != null)
+                return Ok(result);
+            return NotFound();
+        }
+        //Get all category
+        [HttpGet]
+        public IActionResult Categories()
+        {
+            var result =  _exerciseTypeService.GetCategories().Result;
+            if(result != null) 
+                return Ok(result);
+            return NotFound();
         } 
     }
 }

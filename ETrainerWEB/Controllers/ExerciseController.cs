@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ETrainerWEB.Data;
-using ETrainerWEB.Models;
+﻿using ETrainerWEB.Models.DTO;
+using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ETrainerWEB.Controllers
 {
@@ -12,33 +8,60 @@ namespace ETrainerWEB.Controllers
     [Route("[action]")]
     public class ExerciseController : Controller
     {
-        private readonly ETrainerDbContext _db;
-        public ExerciseController(ETrainerDbContext db)
+        private readonly ExerciseService _exerciseService;
+
+        public ExerciseController(ExerciseService exerciseService)
         {
-            _db = db;
+            _exerciseService = exerciseService;
         }
+
         //Get all exercises
         [HttpGet]
-        public async Task<List<Exercise>> Exercises()
+        public IActionResult Exercises()
         {
-            return (await _db.Exercises.ToListAsync()).ToList();
+            var result = _exerciseService.GetExercises().Result;
+            if (result != null)
+                return Ok(result);
+            return NotFound();
+
+        }
+        //Get exercise by id 
+        [HttpGet("{exerciseId:int}")]
+        public IActionResult Exercise([FromRoute]int exerciseId)
+        {
+            var result = _exerciseService.GetExerciseById(exerciseId);
+            if(result != null)
+                return Ok(result);
+            return NotFound();
         }
         //Add new exercise 
         [HttpPost]
-        public async Task<bool> Exercise([FromBody()] Exercise exercise)
+        public IActionResult Exercise([FromBody()] ExerciseDTO exercise)
         {
-            _db.Exercises.Add(exercise);
-            await _db.SaveChangesAsync();
-            return true;
+            var result = _exerciseService.AddExercise(exercise).Result;
+            if (result)
+                return Ok();
+            return NotFound();
         }
+
         //Edit exercise
-        [HttpPut("{id},{name}")]
-        public async Task<bool> Exercise(int id, string name)
+        [HttpPut("{exerciseId:int}")]
+        public IActionResult Exercise([FromBody] ExerciseDTO exercise, [FromRoute] int exerciseId)
         {
-            Exercise exercise = _db.Exercises.Where(e => e.Id == id).FirstOrDefault();
-            exercise.Name = name;
-            await _db.SaveChangesAsync();
-            return true;
+            var result = _exerciseService.EditExercise(exercise, exerciseId).Result;
+            if (result)
+                return Ok();
+            return NotFound();
         }
-    }
+
+        //Delete exercise
+        [HttpDelete("{exerciseId:int}")]
+        public IActionResult ExerciseDelete([FromRoute]int exerciseId)
+        {
+            var result = _exerciseService.DeleteExercise(exerciseId).Result;
+            if (result)
+                return Ok();
+            return NotFound();
+        }
+}
 }

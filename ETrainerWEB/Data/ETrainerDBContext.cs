@@ -1,9 +1,11 @@
 ﻿using ETrainerWEB.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETrainerWEB.Data
 {
-    public partial class ETrainerDbContext : DbContext
+    public partial class ETrainerDbContext : IdentityDbContext<User>  
     {
         public ETrainerDbContext(DbContextOptions<ETrainerDbContext> options) : base(options)
         {
@@ -25,7 +27,18 @@ namespace ETrainerWEB.Data
         public DbSet<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.Id).HasMaxLength(85));
+            modelBuilder.Entity<IdentityRole>(entity => entity.Property(m => m.Id).HasMaxLength(85));
+
+            modelBuilder.Entity<IdentityUserClaim<string>>(entity => entity.Property(m => m.Id).HasMaxLength(85));
+            modelBuilder.Entity<IdentityRoleClaim<string>>(entity => entity.Property(m => m.Id).HasMaxLength(85));
+
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(85));
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity => entity.Property(m => m.ProviderKey).HasMaxLength(85));
+
+            modelBuilder.Entity<IdentityUserToken<string>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(85));
+            modelBuilder.Entity<IdentityUserToken<string>>(entity => entity.Property(m => m.Name).HasMaxLength(85));
             modelBuilder.HasAnnotation("Relational:Collation", "Polish_CI_AS");
 
             modelBuilder.Entity<Workout>(entity =>

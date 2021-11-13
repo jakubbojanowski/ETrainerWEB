@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using ETrainerWEB.Data;
-using ETrainerWEB.Models;
+using ETrainerWEB.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using ETrainerWEB.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace ETrainerWEB.Controllers
 {
@@ -12,47 +11,66 @@ namespace ETrainerWEB.Controllers
     [Route("[action]")]
     public class WorkoutController : ControllerBase
     {
-        private readonly ETrainerDbContext _db;
-        public WorkoutController(ETrainerDbContext db)
+        
+        private readonly WorkoutService _workoutService;
+        public WorkoutController(ETrainerDbContext db,WorkoutService workoutService)
         {
-            _db = db;
+            _workoutService = workoutService;
         }
         //Get all workouts
         [HttpGet]
-        public async Task<List<Workout>> Workouts()
+        public IActionResult Workouts()
         {
-            return (await _db.Workouts.Include(s => s.Exercises).ToListAsync()).ToList();
+            
+            var result =  _workoutService.GetWorkouts().Result;
+            if(result != null) 
+                return Ok(result);
+            return NotFound();
         }
         //Get user's workouts
-        [HttpGet("{id:int}")]
-        public async Task<List<Workout>> UserWorkouts ([FromRoute]int id)
+        [HttpGet("{userId}")]
+        public IActionResult UserWorkouts ([FromRoute]string userId)
         {
-            return (await _db.Workouts.Where(e => e.UserId == id).Include(s => s.Exercises).ToListAsync()).ToList();
+            var result =  _workoutService.GetUserWorkouts(userId).Result;
+            if(result != null) 
+                return Ok(result);
+            return NotFound();
         }
         //Get workout by id 
-        [HttpGet("{id:int}")]
-        public Workout Workout([FromRoute]int id)
+        [HttpGet("{workoutId:int}")]
+        public IActionResult Workout([FromRoute]int workoutId)
         {
-            return (_db.Workouts.Where(e => e.Id == id).Include(s => s.Exercises).FirstOrDefault());
+            var result = _workoutService.GetWorkoutById(workoutId);
+            if(result != null)
+                return Ok(result);
+            return NotFound();
+        }
+        //Get workout by date
+        [HttpGet]
+        public IActionResult Workout([FromQuery]DateTime date)
+        {
+            var result = _workoutService.GetWorkoutByDate(date);
+            if(result != null)
+                return Ok(result);
+            return NotFound();
         }
         //Add new workout
         [HttpPost]
-        public async Task<bool> Workout([FromBody] Workout workout)
-        {
-            _db.Workouts.Add(workout);
-            await _db.SaveChangesAsync();
-            return true;
+        public IActionResult Workout([FromBody] WorkoutDTO workout)
+        { 
+            var result = _workoutService.AddWorkout(workout).Result;
+            if(result) 
+                return Ok();
+            return NotFound();
         }
         //Edit workout
-        [HttpPut("{id:int},{name},{duration:int}")]
-        public async Task<bool> Workout(int id,string name,int duration)
+        [HttpPut("{workoutId:int}")]
+        public IActionResult Workout([FromBody] WorkoutDTO workout,[FromRoute] int workoutId)
         {
-            var workout = _db.Workouts.FirstOrDefault(e => e.Id == id);
-            if (workout == null) return false;
-            workout.Duration = duration;
-            workout.Name = name;
-            await _db.SaveChangesAsync();
-            return true;
+            var result = _workoutService.EditWorkout(workout,workoutId).Result;
+            if(result) 
+                return Ok();
+            return NotFound();
         }
     }
 }

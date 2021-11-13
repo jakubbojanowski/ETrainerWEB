@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace ETrainerWEB.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public User()
         {
@@ -14,13 +16,13 @@ namespace ETrainerWEB.Models
             Meals = new List<Meal>();
             /*Friends = new List<Friends>();
             Friended = new List<Friends>();*/
-            Measurement = new Measurement();
+            /*Measurement = new Measurement();*/
         }
         
-        public int Id { set; get; }
-        public string Login { set; get; }
-        public string Password { set; get; }
-        public string Email { set; get; }
+        /*public int Id { set; get; }*/
+        /*public string Login { set; get; }*/
+        /*public string Password { set; get; }*/
+        /*public string Email { set; get; }*/
         public DateTime DateOfBirth { set; get; }
         public string City { set; get; }
         public string Country { set; get; }
@@ -30,6 +32,6 @@ namespace ETrainerWEB.Models
         public virtual ICollection<Meal> Meals { get; set; }
         /*public virtual ICollection<Friends> Friends { get; set; }
         public virtual ICollection<Friends> Friended { get; set; }*/
-        public virtual Measurement Measurement { get; set; }
+        /*public virtual Measurement Measurement { get; set; }*/
     }
 }
