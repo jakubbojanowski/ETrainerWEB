@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ETrainerWEB.Seeders;
 
 namespace ETrainerWEB.Data
 {
@@ -76,6 +77,7 @@ namespace ETrainerWEB.Data
                 .HasForeignKey(f => f.FriendId);*/
 
             OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Seed();
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
