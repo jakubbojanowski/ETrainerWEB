@@ -25,7 +25,7 @@ namespace ETrainerWEB.Data
         //public DbSet<Friends> Friends { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<WorkoutSchema> WorkoutSchemas { get; set; }
-        public DbSet<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
+        public DbSet<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -6,11 +6,11 @@ namespace ETrainerWEB.Models
     {
         public WorkoutSchema()
         {
-            WorkoutSchemasExercisesSchemas = new List<WorkoutSchemasExercisesSchemas>();
+            WorkoutSchemasExercisesSchemas = new List<WorkoutSchemaExerciseSchema>();
         }
         public int Id { set; get; }
         public string Name{ set; get; }
         public string UserId { set; get; }
-        public virtual ICollection<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
+        public virtual ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }

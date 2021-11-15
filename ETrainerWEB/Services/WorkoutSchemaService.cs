@@ -48,5 +48,26 @@ namespace ETrainerWEB.Services
             _db.WorkoutSchemas.Remove(workoutSchema);
             return await _db.SaveChangesAsync() > 0;
         }
+        public async Task<List<ExerciseSchemaDTO>> GetExerciseSchema(int workoutId)
+        {
+            var workoutSchemas = (await _db.WorkoutSchemasExercisesSchemas.Where(w=>w.WorkoutSchemaId==workoutId).Select(e=>e.ExerciseSchemaId).ToListAsync()).ToList();
+            var exerciseSchemas = _db.ExerciseSchemas.Where(r => workoutSchemas.Contains(r.Id)).ToList();
+            var exerciseSchemasDTO = _automapper.Mapper.Map<List<ExerciseSchema>,List<ExerciseSchemaDTO>>(exerciseSchemas);
+            return exerciseSchemasDTO;
+        }
+        public async Task<bool> AddExerciseSchemaToWorkoutSchema(WorkoutSchemaExerciseSchemaDTO workoutSchemaExerciseSchemaDTO)
+        {
+            var workoutSchemaExerciseSchema = _automapper.Mapper.Map<WorkoutSchemaExerciseSchemaDTO,WorkoutSchemaExerciseSchema>(workoutSchemaExerciseSchemaDTO);
+            _db.WorkoutSchemasExercisesSchemas.Add(workoutSchemaExerciseSchema);
+            return await _db.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> DeleteExerciseSchemaFromWorkoutSchema(int id)
+        {
+            var workoutSchemaExerciseSchema = _db.WorkoutSchemasExercisesSchemas.FirstOrDefault(e => e.Id == id);
+            if (workoutSchemaExerciseSchema == null) return false;
+            _db.WorkoutSchemasExercisesSchemas.Remove(workoutSchemaExerciseSchema);
+            return await _db.SaveChangesAsync() > 0;
+        }
+        
     }
 }

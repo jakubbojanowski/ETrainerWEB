@@ -1,10 +1,9 @@
-﻿namespace ETrainerWEB.Models
+﻿namespace ETrainerWEB.Models.DTO
 {
-    public class WorkoutSchemasExercisesSchemas
+    public class WorkoutSchemaExerciseSchemaDTO
     {
         public int Id { set; get; }
         public int ExerciseSchemaId { set; get; }
         public int WorkoutSchemaId { set; get; }
-
     }
 }

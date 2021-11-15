@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text.Json.Serialization;
 using ETrainerWEB.Data;
 using ETrainerWEB.Models;
@@ -33,11 +34,14 @@ namespace ETrainerWEB
             services.AddScoped<PropertyCopierService<ExerciseType>>();
             services.AddScoped<PropertyCopierService<ExerciseSchema>>();
             services.AddScoped<PropertyCopierService<WorkoutSchema>>();
+            services.AddScoped<PropertyCopierService<User>>();
+            services.AddScoped<PropertyCopierService<Measurement>>();
             services.AddScoped<WorkoutService>();
             services.AddScoped<ExerciseService>();
             services.AddScoped<ExerciseTypeService>();
             services.AddScoped<ExerciseSchemaService>();
             services.AddScoped<WorkoutSchemaService>();
+            services.AddScoped<UserService>();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>();
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 

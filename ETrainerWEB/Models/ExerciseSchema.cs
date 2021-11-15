@@ -6,7 +6,7 @@ namespace ETrainerWEB.Models
     {
         public ExerciseSchema()
         {
-            WorkoutSchemasExercisesSchemas = new List<WorkoutSchemasExercisesSchemas>();
+            //WorkoutSchemasExercisesSchemas = new List<WorkoutSchemaExerciseSchema>();
         }
 
         public int Id { set; get; }
@@ -14,6 +14,6 @@ namespace ETrainerWEB.Models
         public string UserId { set; get; }
         public int TypeId { set; get; }
         public string Properties { set; get; }
-        public virtual ICollection<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
+       // public virtual ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }

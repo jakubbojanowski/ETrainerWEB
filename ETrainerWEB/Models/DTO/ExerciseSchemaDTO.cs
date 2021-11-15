@@ -9,6 +9,6 @@ namespace ETrainerWEB.Models.DTO
         public string UserId { set; get; }
         public int TypeId { set; get; }
         public string Properties { set; get; }
-        public ICollection<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
+        //public ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }
