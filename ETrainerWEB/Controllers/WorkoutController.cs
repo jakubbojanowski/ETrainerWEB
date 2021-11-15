@@ -13,7 +13,7 @@ namespace ETrainerWEB.Controllers
     {
         
         private readonly WorkoutService _workoutService;
-        public WorkoutController(ETrainerDbContext db,WorkoutService workoutService)
+        public WorkoutController(WorkoutService workoutService)
         {
             _workoutService = workoutService;
         }
@@ -64,10 +64,10 @@ namespace ETrainerWEB.Controllers
             return NotFound();
         }
         //Edit workout
-        [HttpPut("{workoutId:int}")]
-        public IActionResult Workout([FromBody] WorkoutDTO workout,[FromRoute] int workoutId)
+        [HttpPut]
+        public IActionResult EditWorkout([FromBody] WorkoutDTO workout)
         {
-            var result = _workoutService.EditWorkout(workout,workoutId).Result;
+            var result = _workoutService.EditWorkout(workout).Result;
             if(result) 
                 return Ok();
             return NotFound();

@@ -18,6 +18,10 @@ namespace ETrainerWEB.Services
                 cfg.CreateMap<ExerciseDTO, Exercise>();
                 cfg.CreateMap<ExerciseType, ExerciseTypeDTO>();
                 cfg.CreateMap<ExerciseTypeDTO, ExerciseType>();
+                cfg.CreateMap<ExerciseSchema, ExerciseSchemaDTO>();
+                cfg.CreateMap<ExerciseSchemaDTO, ExerciseSchema>();
+                cfg.CreateMap<WorkoutSchema, WorkoutSchemaDTO>();
+                cfg.CreateMap<WorkoutSchemaDTO, WorkoutSchema>();
 
             });
 

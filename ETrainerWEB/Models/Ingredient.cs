@@ -9,7 +9,7 @@ namespace ETrainerWEB.Models
             DishesIngredients = new List<DishesIngredients>();
         }
         public int Id { set; get; }
-        public int UserId { set; get; }
+        public string UserId { set; get; }
         public string Name { set; get; }
         public float PortionWeight { set; get; }
         public float CaloricityPerGram { set; get; }

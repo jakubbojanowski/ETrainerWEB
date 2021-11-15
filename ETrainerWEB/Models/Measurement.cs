@@ -1,9 +1,12 @@
-﻿namespace ETrainerWEB.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ETrainerWEB.Models
 {
     public class Measurement
     {
-        public int Id { set; get; }
-        public int UserId { set; get; }
+        [ForeignKey("User")]
+        public string Id { set; get; }
         public string Properties { set; get; }
+        public virtual User User { get; set; }
     }
 }

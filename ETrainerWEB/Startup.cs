@@ -31,9 +31,13 @@ namespace ETrainerWEB
             services.AddScoped<PropertyCopierService<Workout>>();
             services.AddScoped<PropertyCopierService<Exercise>>();
             services.AddScoped<PropertyCopierService<ExerciseType>>();
+            services.AddScoped<PropertyCopierService<ExerciseSchema>>();
+            services.AddScoped<PropertyCopierService<WorkoutSchema>>();
             services.AddScoped<WorkoutService>();
             services.AddScoped<ExerciseService>();
             services.AddScoped<ExerciseTypeService>();
+            services.AddScoped<ExerciseSchemaService>();
+            services.AddScoped<WorkoutSchemaService>();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>();
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 

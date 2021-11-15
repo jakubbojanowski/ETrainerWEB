@@ -6,7 +6,7 @@ namespace ETrainerWEB.Controllers
 {
     [ApiController]
     [Route("[action]")]
-    public class ExerciseController : Controller
+    public class ExerciseController : ControllerBase
     {
         private readonly ExerciseService _exerciseService;
 
@@ -45,10 +45,10 @@ namespace ETrainerWEB.Controllers
         }
 
         //Edit exercise
-        [HttpPut("{exerciseId:int}")]
-        public IActionResult Exercise([FromBody] ExerciseDTO exercise, [FromRoute] int exerciseId)
+        [HttpPut]
+        public IActionResult EditExercise([FromBody] ExerciseDTO exercise)
         {
-            var result = _exerciseService.EditExercise(exercise, exerciseId).Result;
+            var result = _exerciseService.EditExercise(exercise).Result;
             if (result)
                 return Ok();
             return NotFound();
@@ -56,7 +56,7 @@ namespace ETrainerWEB.Controllers
 
         //Delete exercise
         [HttpDelete("{exerciseId:int}")]
-        public IActionResult ExerciseDelete([FromRoute]int exerciseId)
+        public IActionResult DeleteExercise([FromRoute]int exerciseId)
         {
             var result = _exerciseService.DeleteExercise(exerciseId).Result;
             if (result)

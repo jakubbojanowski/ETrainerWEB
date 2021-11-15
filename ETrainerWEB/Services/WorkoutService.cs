@@ -62,9 +62,9 @@ namespace ETrainerWEB.Services
             return await _db.SaveChangesAsync() > 0;
         }
         
-        public async Task<bool> EditWorkout(WorkoutDTO workoutDTO,int id)
+        public async Task<bool> EditWorkout(WorkoutDTO workoutDTO)
         { 
-            var workout = _db.Workouts.FirstOrDefault(e => e.Id == id);
+            var workout = (_db.Workouts.FirstOrDefault(e => e.Date.Date == workoutDTO.Date.Date));
             if (workout == null) return false;
             var updatedWorkout = _automapper.Mapper.Map<WorkoutDTO, Workout>(workoutDTO);
             _propertyCopier.Copy(updatedWorkout,workout);

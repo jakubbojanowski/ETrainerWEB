@@ -10,7 +10,7 @@ namespace ETrainerWEB.Models
         }
         public int Id { set; get; }
         public string Name{ set; get; }
-        public int UserId { set; get; }
+        public string UserId { set; get; }
         public virtual ICollection<WorkoutSchemasExercisesSchemas> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }

@@ -42,9 +42,9 @@ namespace ETrainerWEB.Services
             return await _db.SaveChangesAsync() > 0;
         }
         
-        public async Task<bool> EditExercise(ExerciseDTO exerciseDTO,int id)
+        public async Task<bool> EditExercise(ExerciseDTO exerciseDTO)
         { 
-            var exercise = _db.Exercises.FirstOrDefault(e => e.Id == id);
+            var exercise = _db.Exercises.FirstOrDefault(e => e.Id == exerciseDTO.Id);
             if (exercise == null) return false;
             var updatedExercise = _automapper.Mapper.Map<ExerciseDTO, Exercise>(exerciseDTO);
             _propertyCopier.Copy(updatedExercise,exercise);

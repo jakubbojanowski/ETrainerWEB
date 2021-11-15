@@ -9,7 +9,7 @@ namespace ETrainerWEB.Seeders
 {
     public class MeasurementSeeder
     {
-        public static void Seed(ModelBuilder builder)
+        /*public static void Seed(ModelBuilder builder)
         {
             builder.Entity<Measurement>().HasData(
                 new Measurement()
@@ -18,6 +18,6 @@ namespace ETrainerWEB.Seeders
                     Properties = "XD",
                     UserId = 1
                 });
-        }
+        }*/
     }
 }

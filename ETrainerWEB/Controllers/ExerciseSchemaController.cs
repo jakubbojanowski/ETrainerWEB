@@ -1,39 +1,54 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ETrainerWEB.Data;
-using ETrainerWEB.Models;
+﻿using ETrainerWEB.Models.DTO;
+using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ETrainerWEB.Controllers
 {
     [ApiController]
     [Route("[action]")]
-    public class ExerciseSchemaController : Controller
+    public class ExerciseSchemaController : ControllerBase
     {
-        private readonly ETrainerDbContext _db;
-        public ExerciseSchemaController(ETrainerDbContext db)
+        private readonly ExerciseSchemaService _exerciseSchemaService;
+        public ExerciseSchemaController(ExerciseSchemaService exerciseSchemaService)
         {
-            _db = db;
+            _exerciseSchemaService = exerciseSchemaService;
         }
         //Get all exercise schemas
         [HttpGet]
-        public async Task<List<ExerciseSchema>> ExerciseSchemas()
+        public IActionResult ExerciseSchemas()
         {
-            return (await _db.ExerciseSchemas.ToListAsync()).ToList();
+            var result = _exerciseSchemaService.GetExerciseSchemas().Result;
+            if (result != null)
+                return Ok(result);
+            return NotFound();
         }
-        //Get user's exercise schemas
-        [HttpGet("{id:int}")]
-        public async Task<List<ExerciseSchema>> UserExerciseSchemas([FromRoute]int id)
+        //Add new exerciseSchema
+        [HttpPost]
+        public IActionResult ExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
         {
-            return (await _db.ExerciseSchemas.ToListAsync()).ToList();
+            var result = _exerciseSchemaService.AddExerciseSchema(exerciseSchema).Result;
+            if (result)
+                return Ok();
+            return NotFound();
         }
-        ////Create new exercise schema
-        //[HttpGet]
-        //public async Task CreateNewSchema([FromBody()]ExerciseType exerciseType)
-        //{
-            
-        //}
+
+        //Edit exerciseSchema
+        [HttpPut]
+        public IActionResult EditExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
+        {
+            var result = _exerciseSchemaService.EditExerciseSchema(exerciseSchema).Result;
+            if (result)
+                return Ok();
+            return NotFound();
+        }
+        //Delete exerciseSchema
+        [HttpDelete("{exerciseSchemaId:int}")]
+        public IActionResult DeleteExerciseSchema([FromRoute]int exerciseSchemaId)
+        {
+            var result = _exerciseSchemaService.DeleteExerciseSchema(exerciseSchemaId).Result;
+            if (result)
+                return Ok();
+            return NotFound();
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace ETrainerWEB.Seeders
 {
     public class UserSeeder
     {
-        public static void Seed(ModelBuilder builder)
+        /*public static void Seed(ModelBuilder builder)
         {
             builder.Entity<User>(b =>
             {
@@ -29,7 +29,7 @@ namespace ETrainerWEB.Seeders
                     Properties = "XD",
                     UserId = 1
             });
-            });
+            });*/
 
 
             //builder.Entity<User>().OwnsOne(e => e.Measurement).HasData(
@@ -43,6 +43,6 @@ namespace ETrainerWEB.Seeders
             //        Login = "byczeq",
             //        Password = "qwerty",
             //    });
-        }
+        //}
     }
 }
