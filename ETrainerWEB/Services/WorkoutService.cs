@@ -53,13 +53,14 @@ namespace ETrainerWEB.Services
             return workoutsDTO;
         }
 
-        public async Task<bool> AddWorkout(WorkoutDTO workoutDTO)
+        public async Task<int> AddWorkout(WorkoutDTO workoutDTO)
         {
             var todayWorkout = GetWorkoutByDate(workoutDTO.Date);
-            if (todayWorkout != null) return false;
+            if (todayWorkout != null) return 0;
             var workout = _automapper.Mapper.Map<WorkoutDTO,Workout>(workoutDTO);
             _db.Workouts.Add(workout);
-            return await _db.SaveChangesAsync() > 0;
+            await _db.SaveChangesAsync();
+            return _db.Workouts.Where(c => c.Date.Date == workoutDTO.Date.Date).Select(e => e.Id).FirstOrDefault();
         }
         
         public async Task<bool> EditWorkout(WorkoutDTO workoutDTO)

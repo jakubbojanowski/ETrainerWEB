@@ -39,8 +39,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult Exercise([FromBody()] ExerciseDTO exercise)
         {
             var result = _exerciseService.AddExercise(exercise).Result;
-            if (result)
-                return Ok();
+            if(result != 0) 
+                return Ok(result);
             return NotFound();
         }
 

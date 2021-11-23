@@ -59,8 +59,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult Workout([FromBody] WorkoutDTO workout)
         { 
             var result = _workoutService.AddWorkout(workout).Result;
-            if(result) 
-                return Ok();
+            if(result != 0) 
+                return Ok(result);
             return NotFound();
         }
         //Edit workout

@@ -35,11 +35,13 @@ namespace ETrainerWEB.Services
             var exerciseDTO = _automapper.Mapper.Map<Exercise,ExerciseDTO>(exercise);
             return exerciseDTO;
         }
-        public async Task<bool> AddExercise(ExerciseDTO exerciseDTO)
+        public async Task<int> AddExercise(ExerciseDTO exerciseDTO)
         {
             var exercise = _automapper.Mapper.Map<ExerciseDTO, Exercise>(exerciseDTO);
             _db.Exercises.Add(exercise);
-            return await _db.SaveChangesAsync() > 0;
+            await _db.SaveChangesAsync();
+            return _db.Exercises.Where(c => c.Name == exerciseDTO.Name && c.Properties == exerciseDTO.Properties && c.WorkoutId == exerciseDTO.WorkoutId&& c.TypeId == exerciseDTO.TypeId).Select(e => e.Id).FirstOrDefault();
+
         }
         
         public async Task<bool> EditExercise(ExerciseDTO exerciseDTO)
