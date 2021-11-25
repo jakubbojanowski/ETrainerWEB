@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using ETrainerWEB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Ubiety.Dns.Core;
 
@@ -49,6 +50,7 @@ namespace ETrainerWEB.Controllers
   
             return Ok();  
         }  
+        [AllowAnonymous]
         [HttpPost]  
         [Route("login")]  
         public async Task<IActionResult> Login([FromBody] LoginModel model)  
@@ -86,7 +88,7 @@ namespace ETrainerWEB.Controllers
                 });  
             }  
             return Unauthorized();  
-        }  
-        
+        }
+
     }  
 }

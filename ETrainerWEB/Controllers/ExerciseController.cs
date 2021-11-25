@@ -1,9 +1,11 @@
 ﻿using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrainerWEB.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[action]")]
     public class ExerciseController : ControllerBase
@@ -14,17 +16,7 @@ namespace ETrainerWEB.Controllers
         {
             _exerciseService = exerciseService;
         }
-
-        //Get all exercises
-        [HttpGet]
-        public IActionResult Exercises()
-        {
-            var result = _exerciseService.GetExercises().Result;
-            if (result != null)
-                return Ok(result);
-            return NotFound();
-
-        }
+        
         //Get exercise by id 
         [HttpGet("{exerciseId:int}")]
         public IActionResult Exercise([FromRoute]int exerciseId)

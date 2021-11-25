@@ -1,8 +1,10 @@
 using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
 using ETrainerWEB.Data;
 using ETrainerWEB.Models;
 using ETrainerWEB.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 
@@ -28,6 +31,7 @@ namespace ETrainerWEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ETrainerDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("Default")));
+            services.AddHttpContextAccessor();
             services.AddSingleton<AutomapperService>();
             services.AddScoped<PropertyCopierService<Workout>>();
             services.AddScoped<PropertyCopierService<Exercise>>();
@@ -42,7 +46,25 @@ namespace ETrainerWEB
             services.AddScoped<ExerciseSchemaService>();
             services.AddScoped<WorkoutSchemaService>();
             services.AddScoped<UserService>();
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>().AddDefaultTokenProviders();
+            services.AddAuthentication(options =>  
+            {  
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;  
+            }).AddJwtBearer(options =>  
+            {  
+                options.SaveToken = true;  
+                options.RequireHttpsMetadata = false;  
+                options.TokenValidationParameters = new TokenValidationParameters()  
+                {  
+                    ValidateIssuer = true,  
+                    ValidateAudience = true,  
+                    ValidAudience = Configuration["JWT:ValidAudience"],  
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],  
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))  
+                };  
+            });
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             services.AddSwaggerGen(c =>

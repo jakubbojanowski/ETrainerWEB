@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.Internal;
 using ETrainerWEB.Data;
 using ETrainerWEB.Models;
 using ETrainerWEB.Models.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -18,38 +15,21 @@ namespace ETrainerWEB.Services
         private readonly ETrainerDbContext _db;
         private readonly PropertyCopierService<Workout> _propertyCopier;
         private readonly AutomapperService _automapper;
+        private readonly string _userId;
 
 
-        public WorkoutService(ETrainerDbContext db,PropertyCopierService<Workout> propertyCopierService,AutomapperService automapperService)
+        public WorkoutService(ETrainerDbContext db,PropertyCopierService<Workout> propertyCopierService,AutomapperService automapperService,IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _propertyCopier = propertyCopierService;
             _automapper = automapperService;
-        }
-        public async Task<List<WorkoutDTO>> GetWorkouts()
-        {
-            var workouts = (await _db.Workouts.Include(s => s.Exercises).ToListAsync()).ToList();
-            var workoutsDTO = _automapper.Mapper.Map<List<Workout>,List<WorkoutDTO>>(workouts);
-            return workoutsDTO;
-        }
-
-        public async Task<List<WorkoutDTO>> GetUserWorkouts(string id)
-        {
-            var workouts = (await _db.Workouts.Where(e => e.UserId == id).Include(s => s.Exercises).ToListAsync()).ToList();
-            var workoutsDTO = _automapper.Mapper.Map<List<Workout>,List<WorkoutDTO>>(workouts);
-            return workoutsDTO;
-        }
-        
-        public WorkoutDTO GetWorkoutById(int id)
-        {
-            var workout = (_db.Workouts.Where(e => e.Id == id).Include(s => s.Exercises).FirstOrDefault());
-            var workoutsDTO = _automapper.Mapper.Map<Workout,WorkoutDTO>(workout);
-            return workoutsDTO;
+            _userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
         }
         public WorkoutDTO GetWorkoutByDate(DateTime date)
         {
-            var workout = (_db.Workouts.Where(e => e.Date.Date == date.Date).Include(s => s.Exercises).FirstOrDefault());
-            var workoutsDTO = _automapper.Mapper.Map<Workout,WorkoutDTO>(workout);
+            if (string.IsNullOrEmpty(_userId)) return null;
+            var workout = (_db.Workouts.Where(e => e.UserId == _userId && e.Date.Date == date.Date).Include(s => s.Exercises).FirstOrDefault());
+            var workoutsDTO = _automapper.Mapper.Map<Workout, WorkoutDTO>(workout);
             return workoutsDTO;
         }
 
@@ -57,16 +37,20 @@ namespace ETrainerWEB.Services
         {
             var todayWorkout = GetWorkoutByDate(workoutDTO.Date);
             if (todayWorkout != null) return 0;
+            if (string.IsNullOrEmpty(_userId)) return 0;
+            workoutDTO.UserId = _userId;
             var workout = _automapper.Mapper.Map<WorkoutDTO,Workout>(workoutDTO);
             _db.Workouts.Add(workout);
             await _db.SaveChangesAsync();
-            return _db.Workouts.Where(c => c.Date.Date == workoutDTO.Date.Date).Select(e => e.Id).FirstOrDefault();
+            return _db.Workouts.Where(c => c.UserId ==_userId && c.Date.Date == workoutDTO.Date.Date).Select(e => e.Id).FirstOrDefault();
         }
         
         public async Task<bool> EditWorkout(WorkoutDTO workoutDTO)
         { 
-            var workout = (_db.Workouts.FirstOrDefault(e => e.Date.Date == workoutDTO.Date.Date));
+            if (string.IsNullOrEmpty(_userId)) return false;
+            var workout = (_db.Workouts.FirstOrDefault(e => e.UserId ==_userId && e.Date.Date == workoutDTO.Date.Date));
             if (workout == null) return false;
+            workoutDTO.UserId = _userId;
             var updatedWorkout = _automapper.Mapper.Map<WorkoutDTO, Workout>(workoutDTO);
             _propertyCopier.Copy(updatedWorkout,workout);
             return await _db.SaveChangesAsync() > 0;

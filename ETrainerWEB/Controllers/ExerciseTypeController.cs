@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ETrainerWEB.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[action]")]
     public class ExerciseTypeController : ControllerBase
@@ -36,7 +37,7 @@ namespace ETrainerWEB.Controllers
         [HttpGet]
         public IActionResult Categories()
         {
-            var result =  _exerciseTypeService.GetCategories().Result;
+            var result =  ExerciseTypeService.GetCategories();
             if(result != null) 
                 return Ok(result);
             return NotFound();

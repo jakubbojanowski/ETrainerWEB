@@ -1,12 +1,12 @@
 ﻿using System;
-using ETrainerWEB.Data;
 using ETrainerWEB.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using ETrainerWEB.Services;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ETrainerWEB.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[action]")]
     public class WorkoutController : ControllerBase
@@ -17,35 +17,8 @@ namespace ETrainerWEB.Controllers
         {
             _workoutService = workoutService;
         }
-        //Get all workouts
-        [HttpGet]
-        public IActionResult Workouts()
-        {
-            
-            var result =  _workoutService.GetWorkouts().Result;
-            if(result != null) 
-                return Ok(result);
-            return NotFound();
-        }
-        //Get user's workouts
-        [HttpGet("{userId}")]
-        public IActionResult UserWorkouts ([FromRoute]string userId)
-        {
-            var result =  _workoutService.GetUserWorkouts(userId).Result;
-            if(result != null) 
-                return Ok(result);
-            return NotFound();
-        }
-        //Get workout by id 
-        [HttpGet("{workoutId:int}")]
-        public IActionResult Workout([FromRoute]int workoutId)
-        {
-            var result = _workoutService.GetWorkoutById(workoutId);
-            if(result != null)
-                return Ok(result);
-            return NotFound();
-        }
         //Get workout by date
+        
         [HttpGet]
         public IActionResult Workout([FromQuery]DateTime date)
         {

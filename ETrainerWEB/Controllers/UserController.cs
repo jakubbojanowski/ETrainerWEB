@@ -1,9 +1,11 @@
 ﻿using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETrainerWEB.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[action]")]
     public class UserController : ControllerBase

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ETrainerWEB.Data;
 using ETrainerWEB.Models;
 using ETrainerWEB.Models.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ETrainerWEB.Services
@@ -13,25 +14,17 @@ namespace ETrainerWEB.Services
         private readonly ETrainerDbContext _db;
         private readonly PropertyCopierService<Exercise> _propertyCopier;
         private readonly AutomapperService _automapper;
-        
-        
-        public ExerciseService(ETrainerDbContext db,PropertyCopierService<Exercise> propertyCopierService,AutomapperService automapperService)
+
+        public ExerciseService(ETrainerDbContext db,PropertyCopierService<Exercise> propertyCopierService,AutomapperService automapperService,IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _propertyCopier = propertyCopierService;
             _automapper = automapperService;
         }
 
-        public async Task<List<ExerciseDTO>> GetExercises()
-        {
-            var exercises = (await _db.Exercises.ToListAsync()).ToList();
-            var exercisesDTO = _automapper.Mapper.Map<List<Exercise>, List<ExerciseDTO>>(exercises);
-            return exercisesDTO;
-        }
-
         public ExerciseDTO GetExerciseById(int id)
         {
-            var exercise = (_db.Exercises.Where(e => e.Id == id).FirstOrDefault());
+            var exercise = (_db.Exercises.FirstOrDefault(e => e.Id == id));
             var exerciseDTO = _automapper.Mapper.Map<Exercise,ExerciseDTO>(exercise);
             return exerciseDTO;
         }

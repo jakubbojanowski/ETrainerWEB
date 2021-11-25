@@ -34,14 +34,9 @@ namespace ETrainerWEB.Services
             var exerciseTypeDTO = _automapper.Mapper.Map<ExerciseType,ExerciseTypeDTO>(exerciseType);
             return exerciseTypeDTO;
         }
-        public async Task<List<String>> GetCategories()
+        public static List<string> GetCategories()
         {
-            List<String> categoryList = new();
-            foreach (var value in Enum.GetNames(typeof(Category)))
-            {
-                categoryList.Add(value);
-            }
-            return categoryList;
+            return Enum.GetNames(typeof(Category)).ToList();
         }
     }
 }
