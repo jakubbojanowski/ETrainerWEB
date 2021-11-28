@@ -77,7 +77,7 @@ namespace ETrainerWEB.Data
                 .HasForeignKey(f => f.FriendId);*/
 
             OnModelCreatingPartial(modelBuilder);
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
