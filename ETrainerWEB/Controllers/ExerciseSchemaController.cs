@@ -29,8 +29,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult ExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
         {
             var result = _exerciseSchemaService.AddExerciseSchema(exerciseSchema).Result;
-            if (result)
-                return Ok();
+            if (result != 0)
+                return Ok(result);
             return NotFound();
         }
 

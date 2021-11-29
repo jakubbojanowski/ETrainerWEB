@@ -37,13 +37,14 @@ namespace ETrainerWEB.Services
             var exerciseSchemaDTO = _automapper.Mapper.Map<List<ExerciseSchema>, List<ExerciseSchemaDTO>>(exerciseSchema);
             return exerciseSchemaDTO;
             }
-        public async Task<bool> AddExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
+        public async Task<int> AddExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
         {
-            if (string.IsNullOrEmpty(_userId)) return false;
+            if (string.IsNullOrEmpty(_userId)) return 0;
             exerciseSchemaDTO.UserId = _userId;
             var exerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO,ExerciseSchema>(exerciseSchemaDTO);
             _db.ExerciseSchemas.Add(exerciseSchema);
-            return await _db.SaveChangesAsync() > 0;
+            await _db.SaveChangesAsync();
+            return _db.ExerciseSchemas.Where(c => c.UserId ==_userId && c.TypeId == exerciseSchemaDTO.TypeId && c.Properties==exerciseSchemaDTO.Properties).Select(e => e.Id).FirstOrDefault();
         }
         public async Task<bool> EditExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
         { 
