@@ -42,7 +42,7 @@ namespace ETrainerWEB.Controllers
         {
             var result = _exerciseService.EditExercise(exercise).Result;
             if (result)
-                return Ok();
+                return Ok(result);
             return NotFound();
         }
 

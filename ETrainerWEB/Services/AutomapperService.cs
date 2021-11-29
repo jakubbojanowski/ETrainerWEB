@@ -27,7 +27,13 @@ namespace ETrainerWEB.Services
                 cfg.CreateMap<User, UserDTO>();
                 cfg.CreateMap<UserDTO, User>();
                 cfg.CreateMap<Measurement, MeasurementDTO>();
-                cfg.CreateMap<MeasurementDTO, Measurement>();
+                cfg.CreateMap<MeasurementDTO, Measurement>(); 
+                cfg.CreateMap<Meal, MealDTO>();
+                cfg.CreateMap<MealDTO, Meal>();
+                cfg.CreateMap<Dish, DishDTO>();
+                cfg.CreateMap<DishDTO, Dish>();
+                cfg.CreateMap<MealsDishes, MealsDishesDTO>();
+                cfg.CreateMap<MealsDishesDTO, MealsDishes>();
 
             });
 

@@ -30,6 +30,8 @@ namespace ETrainerWEB.Services
         }
         public async Task<int> AddExercise(ExerciseDTO exerciseDTO)
         {
+            var exist = _db.Exercises.FirstOrDefault(c => c.Name == exerciseDTO.Name && c.Properties == exerciseDTO.Properties && c.WorkoutId == exerciseDTO.WorkoutId&& c.TypeId == exerciseDTO.TypeId);
+            if ( exist != null) return 0;
             var exercise = _automapper.Mapper.Map<ExerciseDTO, Exercise>(exerciseDTO);
             _db.Exercises.Add(exercise);
             await _db.SaveChangesAsync();

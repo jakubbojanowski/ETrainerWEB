@@ -30,23 +30,27 @@ namespace ETrainerWEB.Services
             var workoutSchemaDTO= _automapper.Mapper.Map<List<WorkoutSchema>, List<WorkoutSchemaDTO>>(workoutSchema);
             return workoutSchemaDTO;
             }
-        public async Task<bool> AddWorkoutSchema(WorkoutSchemaDTO workoutSchemaDTO)
+        public async Task<int> AddWorkoutSchema(WorkoutSchemaDTO workoutSchemaDTO)
         {
-            if (string.IsNullOrEmpty(_userId)) return false;
+            if (string.IsNullOrEmpty(_userId)) return 0;
+            var exist = _db.WorkoutSchemas.FirstOrDefault(c => c.UserId ==_userId && c.Name == workoutSchemaDTO.Name);
+            if ( exist != null) return 0;
             workoutSchemaDTO.UserId = _userId;
             var workoutSchema = _automapper.Mapper.Map<WorkoutSchemaDTO,WorkoutSchema>(workoutSchemaDTO);
             _db.WorkoutSchemas.Add(workoutSchema);
-            return await _db.SaveChangesAsync() > 0;
+            await _db.SaveChangesAsync();
+            return _db.WorkoutSchemas.Where(c => c.UserId ==_userId && c.Name == workoutSchemaDTO.Name).Select(e => e.Id).FirstOrDefault();
         }
-        public async Task<bool> EditWorkoutSchema(WorkoutSchemaDTO workoutSchemaDTO)
+        public async Task<int> EditWorkoutSchema(WorkoutSchemaDTO workoutSchemaDTO)
         { 
-            if (string.IsNullOrEmpty(_userId)) return false;
+            if (string.IsNullOrEmpty(_userId)) return 0;
             var workoutSchema = (_db.WorkoutSchemas.FirstOrDefault(e =>e.UserId == _userId && e.Id == workoutSchemaDTO.Id));
-            if (workoutSchema == null) return false;
+            if (workoutSchema == null) return 0;
             workoutSchemaDTO.UserId = _userId;
             var updatedWorkoutSchema = _automapper.Mapper.Map<WorkoutSchemaDTO, WorkoutSchema>(workoutSchemaDTO);
             _propertyCopier.Copy(updatedWorkoutSchema,workoutSchema);
-            return await _db.SaveChangesAsync() > 0;
+            await _db.SaveChangesAsync();
+            return _db.WorkoutSchemas.Where(c => c.UserId ==_userId && c.Name == workoutSchemaDTO.Name).Select(e => e.Id).FirstOrDefault();
         }
         public async Task<bool> DeleteWorkoutSchema(int id)
         {
@@ -69,9 +73,9 @@ namespace ETrainerWEB.Services
             _db.WorkoutSchemasExercisesSchemas.Add(workoutSchemaExerciseSchema);
             return await _db.SaveChangesAsync() > 0;
         }
-        public async Task<bool> DeleteExerciseSchemaFromWorkoutSchema(int id)
+        public async Task<bool> DeleteExerciseSchemaFromWorkoutSchema(int workoutId,int exerciseId)
         {
-            var workoutSchemaExerciseSchema = _db.WorkoutSchemasExercisesSchemas.FirstOrDefault(e => e.Id == id);
+            var workoutSchemaExerciseSchema = _db.WorkoutSchemasExercisesSchemas.FirstOrDefault(e => e.WorkoutSchemaId == workoutId && e.ExerciseSchemaId == exerciseId);
             if (workoutSchemaExerciseSchema == null) return false;
             _db.WorkoutSchemasExercisesSchemas.Remove(workoutSchemaExerciseSchema);
             return await _db.SaveChangesAsync() > 0;

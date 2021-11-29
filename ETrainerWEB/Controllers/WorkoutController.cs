@@ -18,12 +18,20 @@ namespace ETrainerWEB.Controllers
             _workoutService = workoutService;
         }
         //Get workout by date
-        
         [HttpGet]
         public IActionResult Workout([FromQuery]DateTime date)
         {
             var result = _workoutService.GetWorkoutByDate(date);
             if(result != null)
+                return Ok(result);
+            return NotFound();
+        }
+        //Get workout ID by date
+        [HttpGet]
+        public IActionResult WorkoutId([FromQuery]DateTime date)
+        {
+            var result = _workoutService.GetWorkoutIdByDate(date);
+            if(result != 0)
                 return Ok(result);
             return NotFound();
         }

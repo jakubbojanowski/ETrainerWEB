@@ -39,8 +39,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult EditExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
         {
             var result = _exerciseSchemaService.EditExerciseSchema(exerciseSchema).Result;
-            if (result)
-                return Ok();
+            if (result != 0)
+                return Ok(result);
             return NotFound();
         }
         //Delete exerciseSchema

@@ -40,21 +40,24 @@ namespace ETrainerWEB.Services
         public async Task<int> AddExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
         {
             if (string.IsNullOrEmpty(_userId)) return 0;
+            var exist = _db.ExerciseSchemas.FirstOrDefault(c => c.UserId == _userId && c.TypeId == exerciseSchemaDTO.TypeId && c.Properties == exerciseSchemaDTO.Properties);
+            if ( exist != null) return 0;
             exerciseSchemaDTO.UserId = _userId;
             var exerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO,ExerciseSchema>(exerciseSchemaDTO);
             _db.ExerciseSchemas.Add(exerciseSchema);
             await _db.SaveChangesAsync();
             return _db.ExerciseSchemas.Where(c => c.UserId ==_userId && c.TypeId == exerciseSchemaDTO.TypeId && c.Properties==exerciseSchemaDTO.Properties).Select(e => e.Id).FirstOrDefault();
         }
-        public async Task<bool> EditExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
+        public async Task<int> EditExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
         { 
-            if (string.IsNullOrEmpty(_userId)) return false;
+            if (string.IsNullOrEmpty(_userId)) return 0;
             var exerciseSchema = (_db.ExerciseSchemas.FirstOrDefault(e => e.Id == exerciseSchemaDTO.Id));
-            if (exerciseSchema == null) return false;
+            if (exerciseSchema == null) return 0;
             exerciseSchemaDTO.UserId = _userId;
-            var updatedexerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO, ExerciseSchema>(exerciseSchemaDTO);
-            _propertyCopier.Copy(updatedexerciseSchema,exerciseSchema);
-            return await _db.SaveChangesAsync() > 0;
+            var updatedExerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO, ExerciseSchema>(exerciseSchemaDTO);
+            _propertyCopier.Copy(updatedExerciseSchema,exerciseSchema);
+            await _db.SaveChangesAsync();
+            return _db.ExerciseSchemas.Where(c => c.UserId ==_userId && c.TypeId == exerciseSchemaDTO.TypeId && c.Properties==exerciseSchemaDTO.Properties).Select(e => e.Id).FirstOrDefault();
         }
         public async Task<bool> DeleteExerciseSchema(int id)
         {

@@ -40,12 +40,14 @@ namespace ETrainerWEB
             services.AddScoped<PropertyCopierService<WorkoutSchema>>();
             services.AddScoped<PropertyCopierService<User>>();
             services.AddScoped<PropertyCopierService<Measurement>>();
+            services.AddScoped<PropertyCopierService<Meal>>();
             services.AddScoped<WorkoutService>();
             services.AddScoped<ExerciseService>();
             services.AddScoped<ExerciseTypeService>();
             services.AddScoped<ExerciseSchemaService>();
             services.AddScoped<WorkoutSchemaService>();
             services.AddScoped<UserService>();
+            services.AddScoped<MealService>();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>().AddDefaultTokenProviders();
             services.AddAuthentication(options =>  
             {  

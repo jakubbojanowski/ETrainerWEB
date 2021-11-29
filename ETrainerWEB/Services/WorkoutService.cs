@@ -32,7 +32,12 @@ namespace ETrainerWEB.Services
             var workoutsDTO = _automapper.Mapper.Map<Workout, WorkoutDTO>(workout);
             return workoutsDTO;
         }
-
+        public int GetWorkoutIdByDate(DateTime date)
+        {
+            if (string.IsNullOrEmpty(_userId)) return 0;
+            var workoutId = (_db.Workouts.Where(e => e.UserId == _userId && e.Date.Date == date.Date).Select(x=>x.Id).FirstOrDefault());
+            return workoutId;
+        }
         public async Task<int> AddWorkout(WorkoutDTO workoutDTO)
         {
             var todayWorkout = GetWorkoutByDate(workoutDTO.Date);

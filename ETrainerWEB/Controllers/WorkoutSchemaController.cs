@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ETrainerWEB.Controllers
 {
-    [Authorize]
+    [Authorize] 
     [ApiController]
     [Route("[action]")]
     public class WorkoutSchemaController : ControllerBase
@@ -30,8 +30,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult WorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
         {
             var result = _workoutSchemaService.AddWorkoutSchema(workoutSchemaDTO).Result;
-            if (result)
-                return Ok();
+            if (result != 0)
+                return Ok(result);
             return NotFound();
         }
 
@@ -40,8 +40,8 @@ namespace ETrainerWEB.Controllers
         public IActionResult EditWorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
         {
             var result = _workoutSchemaService.EditWorkoutSchema(workoutSchemaDTO).Result;
-            if (result)
-                return Ok();
+            if (result != 0)
+                return Ok(result);
             return NotFound();
         }
         //Delete workoutSchema
@@ -73,9 +73,9 @@ namespace ETrainerWEB.Controllers
         }
         //Delete exerciseSchema from workoutSchema
         [HttpDelete]
-        public IActionResult DeleteExerciseSchema([FromQuery]int exerciseSchemaId)
+        public IActionResult DeleteExerciseSchema([FromQuery]int workoutSchemaId,int exerciseSchemaId)
         {
-            var result = _workoutSchemaService.DeleteExerciseSchemaFromWorkoutSchema(exerciseSchemaId).Result;
+            var result = _workoutSchemaService.DeleteExerciseSchemaFromWorkoutSchema(workoutSchemaId,exerciseSchemaId).Result;
             if (result)
                 return Ok();
             return NotFound();
