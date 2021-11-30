@@ -11,7 +11,6 @@ namespace ETrainerWEB.Services
         {
             var configuration = new MapperConfiguration(cfg => 
             {
-            
                 cfg.CreateMap<Workout, WorkoutDTO>();
                 cfg.CreateMap<WorkoutDTO, Workout>();
                 cfg.CreateMap<Exercise, ExerciseDTO>();
@@ -34,11 +33,8 @@ namespace ETrainerWEB.Services
                 cfg.CreateMap<DishDTO, Dish>();
                 cfg.CreateMap<MealsDishes, MealsDishesDTO>();
                 cfg.CreateMap<MealsDishesDTO, MealsDishes>();
-
             });
-
             Mapper = configuration.CreateMapper();
         }
-        
     }
 }

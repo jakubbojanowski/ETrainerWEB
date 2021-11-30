@@ -1,4 +1,5 @@
-﻿using ETrainerWEB.Models.DTO;
+﻿using System.Threading.Tasks;
+using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,25 +17,25 @@ namespace ETrainerWEB.Controllers
             _userService = userService;
         }
         [HttpGet]
-        public IActionResult User()
+        public async Task<IActionResult> User()
         {
-            var result =  _userService.GetProfile();
+            var result =  await _userService.GetProfile();
             if(result != null) 
                 return Ok(result);
             return NotFound();
         }
         [HttpPut]
-        public IActionResult Measurement([FromBody]MeasurementDTO measurementDTO)
+        public async Task<IActionResult> Measurement([FromBody]MeasurementDTO measurementDTO)
         {
-            var result =  _userService.EditMeasurement(measurementDTO).Result;
+            var result =  await _userService.EditMeasurement(measurementDTO);
             if(result) 
                 return Ok();
             return NotFound();
         }
         [HttpPost]
-        public IActionResult CreateMeasurement([FromBody]MeasurementDTO measurementDTO)
+        public async Task<IActionResult> CreateMeasurement([FromBody]MeasurementDTO measurementDTO)
         { 
-            var result = _userService.CreateMeasurement(measurementDTO).Result;
+            var result = await _userService.CreateMeasurement(measurementDTO);
             if(result) 
                 return Ok();
             return NotFound();

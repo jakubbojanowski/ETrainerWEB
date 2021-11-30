@@ -35,7 +35,6 @@ namespace ETrainerWEB
             services.AddSingleton<AutomapperService>();
             services.AddScoped<PropertyCopierService<Workout>>();
             services.AddScoped<PropertyCopierService<Exercise>>();
-            services.AddScoped<PropertyCopierService<ExerciseType>>();
             services.AddScoped<PropertyCopierService<ExerciseSchema>>();
             services.AddScoped<PropertyCopierService<WorkoutSchema>>();
             services.AddScoped<PropertyCopierService<User>>();

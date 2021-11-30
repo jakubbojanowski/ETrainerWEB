@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;  
-using Microsoft.AspNetCore.Identity;  
+﻿using Microsoft.AspNetCore.Identity;  
 using Microsoft.AspNetCore.Mvc;  
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 using ETrainerWEB.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Ubiety.Dns.Core;
 
 namespace ETrainerWEB.Controllers
 {
@@ -21,8 +19,7 @@ namespace ETrainerWEB.Controllers
     {  
         private readonly UserManager<User> userManager;  
         private readonly RoleManager<IdentityRole> roleManager;  
-        private readonly IConfiguration _configuration;  
-  
+        private readonly IConfiguration _configuration;
         public AuthenticateController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)  
         {  
             this.userManager = userManager;  
@@ -30,7 +27,8 @@ namespace ETrainerWEB.Controllers
             _configuration = configuration;  
         }  
         
-        [HttpPost]  
+        [HttpPost] 
+        [AllowAnonymous]
         [Route("register")]  
         public async Task<IActionResult> Register([FromBody] RegisterModel model)  
         {  
@@ -89,6 +87,5 @@ namespace ETrainerWEB.Controllers
             }  
             return Unauthorized();  
         }
-
     }  
 }

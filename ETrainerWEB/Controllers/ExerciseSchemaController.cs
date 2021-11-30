@@ -1,4 +1,5 @@
-﻿using ETrainerWEB.Models.DTO;
+﻿using System.Threading.Tasks;
+using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,37 +18,36 @@ namespace ETrainerWEB.Controllers
         }
         //Get all exercise schemas
         [HttpGet]
-        public IActionResult ExerciseSchemas()
+        public async Task<IActionResult> ExerciseSchemas()
         {
-            var result = _exerciseSchemaService.GetExerciseSchemas().Result;
+            var result = await _exerciseSchemaService.GetExerciseSchemas();
             if (result != null)
                 return Ok(result);
             return NotFound();
         }
         //Add new exerciseSchema
         [HttpPost]
-        public IActionResult ExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
+        public async Task<IActionResult> ExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
         {
-            var result = _exerciseSchemaService.AddExerciseSchema(exerciseSchema).Result;
+            var result = await _exerciseSchemaService.AddExerciseSchema(exerciseSchema);
             if (result != 0)
                 return Ok(result);
             return NotFound();
         }
-
         //Edit exerciseSchema
         [HttpPut]
-        public IActionResult EditExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
+        public async Task<IActionResult> EditExerciseSchema([FromBody] ExerciseSchemaDTO exerciseSchema)
         {
-            var result = _exerciseSchemaService.EditExerciseSchema(exerciseSchema).Result;
+            var result = await _exerciseSchemaService.EditExerciseSchema(exerciseSchema);
             if (result != 0)
                 return Ok(result);
             return NotFound();
         }
         //Delete exerciseSchema
         [HttpDelete("{exerciseSchemaId:int}")]
-        public IActionResult DeleteExerciseSchema([FromRoute]int exerciseSchemaId)
+        public async Task<IActionResult> DeleteExerciseSchema([FromRoute]int exerciseSchemaId)
         {
-            var result = _exerciseSchemaService.DeleteExerciseSchema(exerciseSchemaId).Result;
+            var result = await _exerciseSchemaService.DeleteExerciseSchema(exerciseSchemaId);
             if (result)
                 return Ok();
             return NotFound();

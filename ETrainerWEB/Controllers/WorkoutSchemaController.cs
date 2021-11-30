@@ -1,4 +1,5 @@
-﻿using ETrainerWEB.Models;
+﻿using System.Threading.Tasks;
+using ETrainerWEB.Models;
 using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -18,18 +19,18 @@ namespace ETrainerWEB.Controllers
         }
         //Get all workoutSchemas
         [HttpGet]
-        public IActionResult WorkoutSchemas()
+        public async Task<IActionResult> WorkoutSchemas()
         {
-            var result = _workoutSchemaService.GetWorkoutSchemas().Result;
+            var result = await _workoutSchemaService.GetWorkoutSchemas();
             if (result != null)
                 return Ok(result);
             return NotFound();
         }
         //Add new workoutSchema
         [HttpPost]
-        public IActionResult WorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
+        public async Task<IActionResult> WorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
         {
-            var result = _workoutSchemaService.AddWorkoutSchema(workoutSchemaDTO).Result;
+            var result = await _workoutSchemaService.AddWorkoutSchema(workoutSchemaDTO);
             if (result != 0)
                 return Ok(result);
             return NotFound();
@@ -37,45 +38,45 @@ namespace ETrainerWEB.Controllers
 
         //Edit workoutSchema
         [HttpPut]
-        public IActionResult EditWorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
+        public async Task<IActionResult> EditWorkoutSchema([FromBody] WorkoutSchemaDTO workoutSchemaDTO)
         {
-            var result = _workoutSchemaService.EditWorkoutSchema(workoutSchemaDTO).Result;
+            var result = await _workoutSchemaService.EditWorkoutSchema(workoutSchemaDTO);
             if (result != 0)
                 return Ok(result);
             return NotFound();
         }
         //Delete workoutSchema
         [HttpDelete("{workoutSchemaId:int}")]
-        public IActionResult DeleteWorkoutSchema([FromRoute]int workoutSchemaId)
+        public async Task<IActionResult> DeleteWorkoutSchema([FromRoute]int workoutSchemaId)
         {
-            var result = _workoutSchemaService.DeleteWorkoutSchema(workoutSchemaId).Result;
+            var result = await _workoutSchemaService.DeleteWorkoutSchema(workoutSchemaId);
             if (result)
                 return Ok();
             return NotFound();
         }
         //Get exerciseSchemas for workoutSchema
         [HttpGet("{workoutId:int}")]
-        public IActionResult ExerciseSchemas([FromRoute]int workoutId)
+        public async Task<IActionResult> ExerciseSchemas([FromRoute]int workoutId)
         {
-            var result = _workoutSchemaService.GetExerciseSchema(workoutId).Result;
+            var result = await _workoutSchemaService.GetExerciseSchema(workoutId);
             if (result != null)
                 return Ok(result);
             return NotFound();
         }
         //Add exerciseSchema to workoutSchema
         [HttpPost]
-        public IActionResult AddExerciseSchema([FromBody] WorkoutSchemaExerciseSchemaDTO workoutSchemaExerciseSchemaDTO)
+        public async Task<IActionResult> AddExerciseSchema([FromBody] WorkoutSchemaExerciseSchemaDTO workoutSchemaExerciseSchemaDTO)
         {
-            var result = _workoutSchemaService.AddExerciseSchemaToWorkoutSchema(workoutSchemaExerciseSchemaDTO).Result;
+            var result = await _workoutSchemaService.AddExerciseSchemaToWorkoutSchema(workoutSchemaExerciseSchemaDTO);
             if (result)
                 return Ok();
             return NotFound();
         }
         //Delete exerciseSchema from workoutSchema
         [HttpDelete]
-        public IActionResult DeleteExerciseSchema([FromQuery]int workoutSchemaId,int exerciseSchemaId)
+        public async Task<IActionResult> DeleteExerciseSchema([FromQuery]int workoutSchemaId,int exerciseSchemaId)
         {
-            var result = _workoutSchemaService.DeleteExerciseSchemaFromWorkoutSchema(workoutSchemaId,exerciseSchemaId).Result;
+            var result = await _workoutSchemaService.DeleteExerciseSchemaFromWorkoutSchema(workoutSchemaId,exerciseSchemaId);
             if (result)
                 return Ok();
             return NotFound();

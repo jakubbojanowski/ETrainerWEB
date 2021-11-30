@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,6 @@ namespace ETrainerWEB.Controllers
     [Route("[action]")]
     public class MealController : ControllerBase
     {
-
         private readonly MealService _mealService;
         public MealController(MealService mealService)
         {
@@ -19,72 +19,72 @@ namespace ETrainerWEB.Controllers
         }
         //Get meals by date
         [HttpGet]
-        public IActionResult Meal([FromQuery] DateTime date)
+        public async Task<IActionResult> Meal([FromQuery] DateTime date)
         {
-            var result = _mealService.GetMealsByDate(date);
+            var result = await _mealService.GetMealsByDate(date);
             if (result != null)
                 return Ok(result);
             return NotFound();
         }
         //Add new meal
         [HttpPost]
-        public IActionResult Meal([FromBody] MealDTO mealDTO)
+        public async Task<IActionResult> Meal([FromBody] MealDTO mealDTO)
         {
-            var result = _mealService.AddMeal(mealDTO).Result;
+            var result = await _mealService.AddMeal(mealDTO);
             if (result != 0)
                 return Ok(result);
             return NotFound();
         }
         //Edit meal
         [HttpPut]
-        public IActionResult EditMeal([FromBody] MealDTO mealDTO)
+        public async Task<IActionResult> EditMeal([FromBody] MealDTO mealDTO)
         {
-            var result = _mealService.EditMeal(mealDTO).Result;
+            var result = await _mealService.EditMeal(mealDTO);
             if (result != 0)
                 return Ok(result);
             return NotFound();
         }
         //Delete meal
         [HttpDelete("{mealId:int}")]
-        public IActionResult Meal([FromRoute]int mealId)
+        public async Task<IActionResult> Meal([FromRoute]int mealId)
         {
-            var result = _mealService.DeleteMeal(mealId).Result;
+            var result = await _mealService.DeleteMeal(mealId);
             if (result)
                 return Ok();
             return NotFound();
         }
         //Get dishes for meal 
         [HttpGet("{mealId:int}")]
-        public IActionResult Dishes([FromRoute] int mealId)
+        public async Task<IActionResult> Dishes([FromRoute] int mealId)
         {
-            var result = _mealService.GetMealsDishes(mealId);
+            var result = await _mealService.GetMealsDishes(mealId);
             if (result != null)
                 return Ok(result);
             return NotFound();
         }
         //Add dish to meal
         [HttpPost]
-        public IActionResult AddDish([FromBody] MealsDishesDTO mealsDishesDTO)
+        public async Task<IActionResult> AddDish([FromBody] MealsDishesDTO mealsDishesDTO)
         {
-            var result = _mealService.AddDishToMeal(mealsDishesDTO).Result;
+            var result = await _mealService.AddDishToMeal(mealsDishesDTO);
             if (result)
                 return Ok();
             return NotFound();
         }
         //Edit dish amount
         [HttpPut]
-        public IActionResult EditMealDishes([FromBody] MealsDishesDTO mealsDishesDTO)
+        public async Task<IActionResult> EditMealDishes([FromBody] MealsDishesDTO mealsDishesDTO)
         {
-            var result = _mealService.EditMealDishes(mealsDishesDTO).Result;
+            var result = await _mealService.EditMealDishes(mealsDishesDTO);
             if (result)
                 return Ok();
             return NotFound();
         }
         //Delete dish from meal
         [HttpDelete]
-        public IActionResult DeleteDish([FromQuery] int mealId,int dishId)
+        public async Task<IActionResult> DeleteDish([FromQuery] int mealId,int dishId)
         {
-            var result = _mealService.DeleteDishFromMeal(mealId,dishId).Result;
+            var result = await _mealService.DeleteDishFromMeal(mealId,dishId);
             if (result)
                 return Ok();
             return NotFound();

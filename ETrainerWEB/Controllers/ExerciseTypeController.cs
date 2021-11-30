@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+﻿using System.Threading.Tasks;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,18 +17,18 @@ namespace ETrainerWEB.Controllers
         }
         //Get all exercise types
         [HttpGet]
-        public IActionResult ExerciseTypes()
+        public async Task<IActionResult> ExerciseTypes()
         {
-            var result =  _exerciseTypeService.GetExercisesType().Result;
+            var result =  await _exerciseTypeService.GetExercisesType();
             if(result != null) 
                 return Ok(result);
             return NotFound();
         } 
         //Get exerciseType by id 
         [HttpGet("{exerciseTypeId:int}")]
-        public IActionResult ExerciseType([FromRoute]int exerciseTypeId)
+        public async Task<IActionResult> ExerciseType([FromRoute]int exerciseTypeId)
         {
-            var result = _exerciseTypeService.GetExerciseTypeById(exerciseTypeId);
+            var result = await _exerciseTypeService.GetExerciseTypeById(exerciseTypeId);
             if(result != null)
                 return Ok(result);
             return NotFound();
