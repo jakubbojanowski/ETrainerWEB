@@ -42,26 +42,26 @@ namespace ETrainerWEB.Data
             modelBuilder.Entity<IdentityUserToken<string>>(entity => entity.Property(m => m.Name).HasMaxLength(85));
             modelBuilder.HasAnnotation("Relational:Collation", "Polish_CI_AS");
 
-            modelBuilder.Entity<Workout>(entity =>
+            /*modelBuilder.Entity<Workout>(entity =>
             {
                 entity.HasMany(b => b.Exercises)
                     .WithOne()
                     .HasForeignKey(e => e.WorkoutId);
-            });
+            });*/
             
-            modelBuilder.Entity<ExerciseType>(entity =>
+            /*modelBuilder.Entity<ExerciseType>(entity =>
             {
                 entity.HasMany(b => b.Exercises)
                     .WithOne()
                     .HasForeignKey(e => e.TypeId);
-            });
+            });*/
             
-            modelBuilder.Entity<ExerciseType>(entity =>
+            /*modelBuilder.Entity<ExerciseType>(entity =>
             {
                 entity.HasMany(b => b.ExerciseSchemas)
                     .WithOne()
                     .HasForeignKey(e => e.TypeId);
-            });
+            });*/
 
             /*modelBuilder.Entity<Friends>()
                 .HasKey(f => new { f.UserId, f.FriendId });

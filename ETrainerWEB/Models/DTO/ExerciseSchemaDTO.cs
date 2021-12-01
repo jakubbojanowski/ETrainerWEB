@@ -8,7 +8,7 @@ namespace ETrainerWEB.Models.DTO
         public string Name { set; get; }
         public string Icon { set; get; }
         public string UserId { set; get; }
-        public int TypeId { set; get; }
+        public int ExerciseTypeId { set; get; }
         public string Properties { set; get; }
         //public ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }

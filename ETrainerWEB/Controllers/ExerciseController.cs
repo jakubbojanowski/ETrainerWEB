@@ -27,7 +27,7 @@ namespace ETrainerWEB.Controllers
         }
         //Add new exercise 
         [HttpPost]
-        public async Task<IActionResult> Exercise([FromBody()] ExerciseDTO exercise)
+        public async Task<IActionResult> Exercise([FromBody] ExerciseDTO exercise)
         {
             var result = await _exerciseService.AddExercise(exercise);
             if(result != 0) 

@@ -32,7 +32,7 @@ namespace ETrainerWEB.Services
         public async Task<int> AddExerciseSchema(ExerciseSchemaDTO exerciseSchemaDTO)
         {
             if (string.IsNullOrEmpty(_userId)) return 0;
-            var exist = await _db.ExerciseSchemas.FirstOrDefaultAsync(c => c.UserId == _userId && c.TypeId == exerciseSchemaDTO.TypeId && c.Properties == exerciseSchemaDTO.Properties);
+            var exist = await _db.ExerciseSchemas.FirstOrDefaultAsync(c => c.UserId == _userId && c.Properties == exerciseSchemaDTO.Properties);
             if ( exist != null) return 0;
             exerciseSchemaDTO.UserId = _userId;
             var exerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO,ExerciseSchema>(exerciseSchemaDTO);
