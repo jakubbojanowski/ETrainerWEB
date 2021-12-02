@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ETrainerWEB.Models
+namespace ETrainerWEB.Models.DTO
 {
-    public class Ingredient
+    public class IngredientDTo
     {
         public int Id { set; get; }
         public string UserId { set; get; }

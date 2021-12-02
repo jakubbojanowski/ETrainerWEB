@@ -5,10 +5,9 @@ namespace ETrainerWEB.Models
 {
     public class Measurement
     {
-        [ForeignKey("User")]
         public string Id { set; get; }
         public string Properties { set; get; }
         [JsonIgnore]
-        public virtual User User { get; set; }
+        public User User { set; get; }
     }
 }

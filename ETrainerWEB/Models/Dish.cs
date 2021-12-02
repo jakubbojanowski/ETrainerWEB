@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ETrainerWEB.Models
 {
@@ -14,8 +15,10 @@ namespace ETrainerWEB.Models
         public string Name { set; get; }
         public float PortionWeight { set; get; }
         public float CaloricityPerGram { set; get; }
-        public virtual ICollection<MealsDishes> MealsDishes { get; set; }
-        public virtual ICollection<DishesIngredients> DishesIngredients { get; set; }
+        [JsonIgnore]
+        public ICollection<MealsDishes> MealsDishes { get; set; }
+        [JsonIgnore]
+        public ICollection<DishesIngredients> DishesIngredients { get; set; }
 
     }
 }

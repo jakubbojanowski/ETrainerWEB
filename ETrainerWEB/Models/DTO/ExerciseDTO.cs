@@ -8,7 +8,6 @@ namespace ETrainerWEB.Models.DTO
         public int Id { set; get; }
         public string Name { set; get; }
         public string Icon { set; get; }
-        public int ExerciseTypeId { set; get; }
         public string Properties { set; get; }
         [JsonIgnore]
         public Workout Workout { set; get; }

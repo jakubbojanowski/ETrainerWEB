@@ -13,6 +13,6 @@ namespace ETrainerWEB.Models
         public ICollection<ExerciseSchema> ExerciseSchemas { get; set; }
         public ICollection<WorkoutSchema> WorkoutSchemas { get; set; }
         public ICollection<Meal> Meals { get; set; }
-        public Measurement Measurement { get; set; }
+        public ICollection<Measurement> Measurement { get; set; }
     }
 }

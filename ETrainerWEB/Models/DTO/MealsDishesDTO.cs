@@ -1,10 +1,19 @@
-﻿namespace ETrainerWEB.Models.DTO
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace ETrainerWEB.Models.DTO
 {
     public class MealsDishesDTO
     {
         public int Id { set; get; }
-        public int MealId { set; get; }
-        public int DishId { set; get; }
+        [JsonIgnore]
+        public Meal Meal { set; get; }
+        [NotMapped]
+        public int CurrentMeal { set; get; }
+        [JsonIgnore]
+        public Dish Dish { set; get; }
+        [NotMapped]
+        public int CurrentDish { set; get; }
         public double Amount { set; get; }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ETrainerWEB.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[action]")]
     public class MealController : ControllerBase
@@ -89,5 +89,14 @@ namespace ETrainerWEB.Controllers
                 return Ok();
             return NotFound();
         }
+        //Get dishes caloricity
+        /*[HttpGet("{dishId:int}")]
+        public async Task<IActionResult> DishCaloricity([FromRoute] int dishId)
+        {
+            var result = await _mealService.GetDishCaloricity(dishId);
+            if (result != null)
+                return Ok(result);
+            return NotFound();
+        }*/
     }
 }

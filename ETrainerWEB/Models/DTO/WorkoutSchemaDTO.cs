@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ETrainerWEB.Models.DTO
 {
@@ -6,7 +7,9 @@ namespace ETrainerWEB.Models.DTO
     {
         public int Id { set; get; }
         public string Name{ set; get; }
-        public string UserId { set; get; }
-        //public ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
+        [JsonIgnore]
+        public User User { set; get; }
+        [JsonIgnore]
+        public ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }
