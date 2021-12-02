@@ -11,13 +11,11 @@ namespace ETrainerWEB.Models
             DishesIngredients = new List<DishesIngredients>();
         }
         public int Id { set; get; }
-        public string UserId { set; get; }
         public string Name { set; get; }
         public float PortionWeight { set; get; }
         public float CaloricityPerGram { set; get; }
-        [JsonIgnore]
+        public User User { set; get; }
         public ICollection<MealsDishes> MealsDishes { get; set; }
-        [JsonIgnore]
         public ICollection<DishesIngredients> DishesIngredients { get; set; }
 
     }

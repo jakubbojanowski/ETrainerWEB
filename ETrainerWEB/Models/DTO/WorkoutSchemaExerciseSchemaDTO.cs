@@ -8,11 +8,9 @@ namespace ETrainerWEB.Models.DTO
         public int Id { set; get; }
         [JsonIgnore]
         public WorkoutSchema WorkoutSchema { set; get; }
-        [NotMapped]
         public int CurrentWorkoutSchemaId { set; get; }
         [JsonIgnore]
         public ExerciseSchema ExerciseSchema { set; get; }
-        [NotMapped]
         public int CurrentExerciseSchemaId { set; get; }
         
     }

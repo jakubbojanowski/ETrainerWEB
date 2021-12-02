@@ -22,7 +22,6 @@ namespace ETrainerWEB.Data
         public DbSet<DishesIngredients> DishesIngredients { get; set; }
         public DbSet<MealsDishes> MealsDishes { get; set; }
         public DbSet<User> Users { get; set; }
-        //public DbSet<Friends> Friends { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<WorkoutSchema> WorkoutSchemas { get; set; }
         public DbSet<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }

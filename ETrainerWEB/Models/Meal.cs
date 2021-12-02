@@ -6,12 +6,15 @@ namespace ETrainerWEB.Models
 {
     public class Meal
     {
+        public Meal()
+        {
+            MealsDishes = new List<MealsDishes>();
+        }
+
         public int Id { set; get; }
         public DateTime Date { set; get; }
         public string Name { set; get; }
-        [JsonIgnore]
         public User User { set; get; }
-        [JsonIgnore]
         public ICollection<MealsDishes> MealsDishes { get; set; }
     }
 }

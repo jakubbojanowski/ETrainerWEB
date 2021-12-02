@@ -7,7 +7,6 @@ namespace ETrainerWEB.Models
     {
         public string Id { set; get; }
         public string Properties { set; get; }
-        [JsonIgnore]
         public User User { set; get; }
     }
 }

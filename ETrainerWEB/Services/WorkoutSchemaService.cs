@@ -54,7 +54,7 @@ namespace ETrainerWEB.Services
         public async Task<bool> DeleteWorkoutSchema(int id)
         {
             if (string.IsNullOrEmpty(_userId)) return false;
-            var workoutSchema = await _db.WorkoutSchemas.FirstOrDefaultAsync(e =>e.User.Id == _userId && e.Id == id);
+            var workoutSchema = await _db.WorkoutSchemas.Where(e =>e.User.Id == _userId && e.Id == id).Include(c=>c.WorkoutSchemasExercisesSchemas).ThenInclude(x=>x.ExerciseSchema).FirstOrDefaultAsync();
             if (workoutSchema == null) return false;
             _db.WorkoutSchemas.Remove(workoutSchema);
             return await _db.SaveChangesAsync() > 0;

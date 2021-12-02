@@ -8,12 +8,10 @@ namespace ETrainerWEB.Models.DTO
         public int Id { set; get; }
         [JsonIgnore]
         public Meal Meal { set; get; }
-        [NotMapped]
-        public int CurrentMeal { set; get; }
+        public int CurrentMealId { set; get; }
         [JsonIgnore]
         public Dish Dish { set; get; }
-        [NotMapped]
-        public int CurrentDish { set; get; }
+        public int CurrentDishId { set; get; }
         public double Amount { set; get; }
     }
 }

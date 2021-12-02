@@ -6,7 +6,7 @@ namespace ETrainerWEB.Models.DTO
     {
         public string Id { set; get; }
         public string Properties { set; get; }
-        /*[JsonIgnore]
-        public virtual User User { get; set; }*/
+        [JsonIgnore]
+        public User User { get; set; }
     }
 }

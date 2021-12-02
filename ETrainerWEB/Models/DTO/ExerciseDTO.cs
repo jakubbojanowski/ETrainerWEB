@@ -10,8 +10,7 @@ namespace ETrainerWEB.Models.DTO
         public string Icon { set; get; }
         public string Properties { set; get; }
         [JsonIgnore]
-        public Workout Workout { set; get; }
-        [NotMapped] 
+        public virtual Workout Workout { set; get; }
         public int CurrentWorkoutId { set; get; }
     }
 }

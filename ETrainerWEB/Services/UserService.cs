@@ -24,7 +24,7 @@ namespace ETrainerWEB.Services
         public async Task<UserDTO> GetProfile()
         {
             if (string.IsNullOrEmpty(_userId)) return null;
-            var user = await _db.Users.Where(e=>e.Id == _userId).Include(s=>s.Measurement).FirstOrDefaultAsync();
+            var user = await _db.Users.Where(e=>e.Id == _userId).Include(s=>s.Measurements).FirstOrDefaultAsync();
             var userDTO = _automapper.Mapper.Map<User,UserDTO>(user);
             return userDTO;
         }

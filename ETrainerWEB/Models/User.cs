@@ -6,6 +6,15 @@ namespace ETrainerWEB.Models
 {
     public class User : IdentityUser
     {
+        public User()
+        {
+            Workouts = new List<Workout>();
+            ExerciseSchemas = new List<ExerciseSchema>();
+            WorkoutSchemas = new List<WorkoutSchema>();
+            Meals = new List<Meal>();
+            Measurements = new List<Measurement>();
+        }
+
         public DateTime DateOfBirth { set; get; }
         public string City { set; get; }
         public string Country { set; get; }
@@ -13,6 +22,6 @@ namespace ETrainerWEB.Models
         public ICollection<ExerciseSchema> ExerciseSchemas { get; set; }
         public ICollection<WorkoutSchema> WorkoutSchemas { get; set; }
         public ICollection<Meal> Meals { get; set; }
-        public ICollection<Measurement> Measurement { get; set; }
+        public ICollection<Measurement> Measurements { get; set; }
     }
 }

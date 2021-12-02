@@ -28,7 +28,7 @@ namespace ETrainerWEB.Services
         public async Task<int> AddExercise(ExerciseDTO exerciseDTO)
         {
             exerciseDTO.Workout = await _db.Workouts.FirstOrDefaultAsync(e => e.Id == exerciseDTO.CurrentWorkoutId);
-            var exist = await _db.Exercises.FirstOrDefaultAsync(c => c.Name == exerciseDTO.Name && c.Properties == exerciseDTO.Properties && c.Workout.Id == exerciseDTO.Workout.Id);
+            var exist = await _db.Exercises.FirstOrDefaultAsync(c => c.Properties == exerciseDTO.Properties && c.Workout.Id == exerciseDTO.Workout.Id);
             if ( exist != null) return 0;
             var exercise = _automapper.Mapper.Map<ExerciseDTO, Exercise>(exerciseDTO);
             await _db.Exercises.AddAsync(exercise);

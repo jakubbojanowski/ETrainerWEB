@@ -21,7 +21,7 @@ namespace ETrainerWEB.Services
             _db = db;
             _propertyCopier = propertyCopierService;
             _automapper = automapperService;
-            _userId = "0697ef14-ba76-428f-a359-496535fe86dd";
+            _userId = "fb85f652-39bd-44a0-8eec-fc94b8228946";
             //_userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
         }
         public async Task<List<MealDTO>> GetMealsByDate(DateTime date)
@@ -64,16 +64,16 @@ namespace ETrainerWEB.Services
         public async Task<List<DishDTO>> GetMealsDishes(int mealId)
         {
             var dishesId = await _db.MealsDishes.Where(w=> w.Meal.Id==mealId).Select(e=>e.Dish.Id).ToListAsync();
-            var dishes = await _db.Dishes.Where(r =>r.UserId == _userId && dishesId.Contains(r.Id)).ToListAsync();
+            var dishes = await _db.Dishes.Where(r =>r.User.Id == _userId && dishesId.Contains(r.Id)).Include(e=>e.DishesIngredients).ToListAsync();
             var dishesDTO = _automapper.Mapper.Map<List<Dish>,List<DishDTO>>(dishes);
             return dishesDTO;
         }
         public async Task<bool> AddDishToMeal(MealsDishesDTO mealsDishesDTO)
         {
-            var exist = await _db.MealsDishes.FirstOrDefaultAsync(c => c.Meal.Id==mealsDishesDTO.CurrentMeal&&c.Dish.Id==mealsDishesDTO.CurrentDish);
+            var exist = await _db.MealsDishes.FirstOrDefaultAsync(c => c.Meal.Id==mealsDishesDTO.CurrentMealId&&c.Dish.Id==mealsDishesDTO.CurrentDishId);
             if ( exist != null) return false;
-            mealsDishesDTO.Meal = await _db.Meals.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentMeal);
-            mealsDishesDTO.Dish = await _db.Dishes.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentDish);
+            mealsDishesDTO.Meal = await _db.Meals.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentMealId);
+            mealsDishesDTO.Dish = await _db.Dishes.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentDishId);
             var mealDish = _automapper.Mapper.Map<MealsDishesDTO,MealsDishes>(mealsDishesDTO);
             await _db.MealsDishes.AddAsync(mealDish);
             return await _db.SaveChangesAsync() > 0;
@@ -81,9 +81,9 @@ namespace ETrainerWEB.Services
         public async Task<bool> EditMealDishes(MealsDishesDTO mealsDishesDTO)
         { 
             if (string.IsNullOrEmpty(_userId)) return false;
-            mealsDishesDTO.Meal = await _db.Meals.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentMeal);
-            mealsDishesDTO.Dish = await _db.Dishes.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentDish);
-            var meal = await _db.MealsDishes.FirstOrDefaultAsync(c => c.Meal.Id ==mealsDishesDTO.CurrentMeal && c.Dish.Id == mealsDishesDTO.CurrentDish);
+            mealsDishesDTO.Meal = await _db.Meals.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentMealId);
+            mealsDishesDTO.Dish = await _db.Dishes.FirstOrDefaultAsync(e => e.Id==mealsDishesDTO.CurrentDishId);
+            var meal = await _db.MealsDishes.FirstOrDefaultAsync(c => c.Meal.Id ==mealsDishesDTO.CurrentMealId && c.Dish.Id == mealsDishesDTO.CurrentDishId);
             if (meal == null) return false;
             meal.Amount = mealsDishesDTO.Amount;
             return await _db.SaveChangesAsync() > 0;

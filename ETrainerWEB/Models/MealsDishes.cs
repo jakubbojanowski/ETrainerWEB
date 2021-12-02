@@ -6,14 +6,10 @@ namespace ETrainerWEB.Models
     public class MealsDishes
     {
         public int Id { set; get; }
-        [JsonIgnore]
         public Meal Meal { set; get; }
-        [NotMapped]
-        public int CurrentMeal { set; get; }
-        [JsonIgnore]
+        public int MealId { set; get; }
         public Dish Dish { set; get; }
-        [NotMapped]
-        public int CurrentDish { set; get; }
+        public int DishId { set; get; }
         public double Amount { set; get; }
     }
 }
