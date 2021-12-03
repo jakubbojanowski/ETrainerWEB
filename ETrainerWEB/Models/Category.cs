@@ -2,9 +2,11 @@
 {
     public enum Category
     {
-        Cardio,
-        Chest,
-        Back,
+        Kardio,
+        Klatkaa_piersiowa,
+        Plecy,
+        Ramiona,
+        Nogi
     }
     
 }

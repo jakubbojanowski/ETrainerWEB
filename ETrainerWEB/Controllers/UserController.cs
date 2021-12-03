@@ -24,21 +24,5 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-        [HttpPut]
-        public async Task<IActionResult> Measurement([FromBody]MeasurementDTO measurementDTO)
-        {
-            var result =  await _userService.EditMeasurement(measurementDTO);
-            if(result) 
-                return Ok();
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateMeasurement([FromBody]MeasurementDTO measurementDTO)
-        { 
-            var result = await _userService.CreateMeasurement(measurementDTO);
-            if(result) 
-                return Ok();
-            return NotFound();
-        }
     }
 }

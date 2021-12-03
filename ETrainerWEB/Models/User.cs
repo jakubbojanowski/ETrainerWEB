@@ -12,6 +12,8 @@ namespace ETrainerWEB.Models
             ExerciseSchemas = new List<ExerciseSchema>();
             WorkoutSchemas = new List<WorkoutSchema>();
             Meals = new List<Meal>();
+            Dishes = new List<Dish>();
+            Ingredients = new List<Ingredient>();
             Measurements = new List<Measurement>();
         }
 
@@ -22,6 +24,8 @@ namespace ETrainerWEB.Models
         public ICollection<ExerciseSchema> ExerciseSchemas { get; set; }
         public ICollection<WorkoutSchema> WorkoutSchemas { get; set; }
         public ICollection<Meal> Meals { get; set; }
+        public ICollection<Dish> Dishes { get; set; }
+        public ICollection<Ingredient> Ingredients { get; set; }
         public ICollection<Measurement> Measurements { get; set; }
     }
 }

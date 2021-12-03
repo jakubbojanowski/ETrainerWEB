@@ -28,32 +28,5 @@ namespace ETrainerWEB.Services
             var userDTO = _automapper.Mapper.Map<User,UserDTO>(user);
             return userDTO;
         }
-        public async Task<MeasurementDTO> GetMeasurement()
-        {
-            if (string.IsNullOrEmpty(_userId)) return null;
-            var measurement = await _db.Measurements.FirstOrDefaultAsync(e => e.Id==_userId);
-            var measurementDTO = _automapper.Mapper.Map<Measurement,MeasurementDTO>(measurement);
-            return measurementDTO;
-        }
-        public async Task<bool> EditMeasurement(MeasurementDTO measurementDTO)
-        { 
-            if (string.IsNullOrEmpty(_userId)) return false;
-            var measurement = await _db.Measurements.FirstOrDefaultAsync(e => e.Id == _userId);
-            if (measurement == null) return false;
-            measurementDTO.Id = _userId;
-            var updatedMeasurement = _automapper.Mapper.Map<MeasurementDTO, Measurement>(measurementDTO);
-            _propertyCopier.Copy(updatedMeasurement,measurement);
-            return await _db.SaveChangesAsync() > 0;
-        }
-        public async Task<bool> CreateMeasurement(MeasurementDTO measurementDTO)
-        {
-            if (string.IsNullOrEmpty(_userId)) return false;
-            var userMeasurement = await GetMeasurement();
-            if (userMeasurement != null) return false;
-            measurementDTO.Id = _userId;
-            var measurement = _automapper.Mapper.Map<MeasurementDTO,Measurement>(measurementDTO);
-            await _db.Measurements.AddAsync(measurement);
-            return await _db.SaveChangesAsync() > 0;
-        }
     }
 }

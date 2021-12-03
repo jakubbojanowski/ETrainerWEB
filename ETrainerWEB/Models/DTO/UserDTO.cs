@@ -10,7 +10,5 @@ namespace ETrainerWEB.Models.DTO
         public DateTime DateOfBirth { set; get; }
         public string City { set; get; }
         public string Country { set; get; }
-        //public Measurement Measurement { set; get; }
-        //public  ICollection<ExerciseSchema> ExerciseSchemas { get; set; }
     }
 }

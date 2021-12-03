@@ -32,7 +32,11 @@ namespace ETrainerWEB.Services
                 cfg.CreateMap<Dish, DishDTO>();
                 cfg.CreateMap<DishDTO, Dish>();
                 cfg.CreateMap<MealsDishes, MealsDishesDTO>();
-                cfg.CreateMap<MealsDishesDTO, MealsDishes>();
+                cfg.CreateMap<MealsDishesDTO, MealsDishes>(); 
+                cfg.CreateMap<Ingredient, IngredientDTO>();
+                cfg.CreateMap<IngredientDTO, Ingredient>();
+                cfg.CreateMap<DishesIngredients, DishesIngredientsDTO>();
+                cfg.CreateMap<DishesIngredientsDTO, DishesIngredients>();
             });
             Mapper = configuration.CreateMapper();
         }

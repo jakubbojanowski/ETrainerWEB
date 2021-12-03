@@ -44,14 +44,5 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-        //Edit workout
-        [HttpPut]
-        public async Task<IActionResult> EditWorkout([FromBody] WorkoutDTO workout)
-        {
-            var result = await _workoutService.EditWorkout(workout);
-            if(result) 
-                return Ok();
-            return NotFound();
-        }
     }
 }

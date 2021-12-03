@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ETrainerWEB.Data;
@@ -21,13 +22,12 @@ namespace ETrainerWEB.Services
             _db = db;
             _propertyCopier = propertyCopierService;
             _automapper = automapperService;
-            _userId = "fb85f652-39bd-44a0-8eec-fc94b8228946";
-            //_userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
+            _userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
         }
         public async Task<List<MealDTO>> GetMealsByDate(DateTime date)
         {
             if (string.IsNullOrEmpty(_userId)) return null;
-            var meals = await _db.Meals.Where(e=>e.User.Id == _userId).ToListAsync();
+            var meals = await _db.Meals.Where(e=>e.User.Id == _userId && e.Date.Date == date.Date).ToListAsync();
             var mealsDTO= _automapper.Mapper.Map<List<Meal>, List<MealDTO>>(meals);
             return mealsDTO;
         }
@@ -64,7 +64,7 @@ namespace ETrainerWEB.Services
         public async Task<List<DishDTO>> GetMealsDishes(int mealId)
         {
             var dishesId = await _db.MealsDishes.Where(w=> w.Meal.Id==mealId).Select(e=>e.Dish.Id).ToListAsync();
-            var dishes = await _db.Dishes.Where(r =>r.User.Id == _userId && dishesId.Contains(r.Id)).Include(e=>e.DishesIngredients).ToListAsync();
+            var dishes = await _db.Dishes.Where(r =>(r.User.Id == _userId || r.User.Id == null) && dishesId.Contains(r.Id)).Include(e=>e.DishesIngredients).ToListAsync();
             var dishesDTO = _automapper.Mapper.Map<List<Dish>,List<DishDTO>>(dishes);
             return dishesDTO;
         }

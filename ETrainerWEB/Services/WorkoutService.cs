@@ -46,15 +46,5 @@ namespace ETrainerWEB.Services
             await _db.SaveChangesAsync();
             return workout.Id;
         }
-        public async Task<bool> EditWorkout(WorkoutDTO workoutDTO)
-        { 
-            if (string.IsNullOrEmpty(_userId)) return false;
-            var workout = await _db.Workouts.FirstOrDefaultAsync(e => e.User.Id ==_userId && e.Date.Date == workoutDTO.Date.Date);
-            if (workout == null) return false;
-            workoutDTO.User.Id = _userId;
-            var updatedWorkout = _automapper.Mapper.Map<WorkoutDTO, Workout>(workoutDTO);
-            _propertyCopier.Copy(updatedWorkout,workout);
-            return await _db.SaveChangesAsync() > 0;
-        }
     }
 }

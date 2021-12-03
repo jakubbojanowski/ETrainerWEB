@@ -40,6 +40,8 @@ namespace ETrainerWEB
             services.AddScoped<PropertyCopierService<User>>();
             services.AddScoped<PropertyCopierService<Measurement>>();
             services.AddScoped<PropertyCopierService<Meal>>();
+            services.AddScoped<PropertyCopierService<Dish>>();
+            services.AddScoped<PropertyCopierService<Ingredient>>();
             services.AddScoped<WorkoutService>();
             services.AddScoped<ExerciseService>();
             services.AddScoped<ExerciseTypeService>();
@@ -47,6 +49,9 @@ namespace ETrainerWEB
             services.AddScoped<WorkoutSchemaService>();
             services.AddScoped<UserService>();
             services.AddScoped<MealService>();
+            services.AddScoped<DishService>();
+            services.AddScoped<IngredientService>();
+            services.AddScoped<MeasurementService>();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ETrainerDbContext>().AddDefaultTokenProviders();
             services.AddAuthentication(options =>  
             {  

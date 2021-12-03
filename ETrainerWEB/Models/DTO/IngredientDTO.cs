@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ETrainerWEB.Models.DTO
 {
-    public class IngredientDTo
+    public class IngredientDTO
     {
         public int Id { set; get; }
         public string Name { set; get; }
