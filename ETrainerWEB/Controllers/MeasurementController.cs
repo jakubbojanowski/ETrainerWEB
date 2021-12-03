@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ETrainerWEB.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[action]")]
     public class MeasurementController : ControllerBase

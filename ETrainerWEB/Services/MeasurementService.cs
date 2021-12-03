@@ -21,8 +21,7 @@ namespace ETrainerWEB.Services
             _db = db;
             _propertyCopier = propertyCopierService;
             _automapper = automapperService;
-            _userId = "847d87ee-9d7f-46cb-85cc-a26bc731796f";
-            //_userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
+            _userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
         }
         public async Task<MeasurementDTO> GetMeasurementByDate(DateTime date)
         {
