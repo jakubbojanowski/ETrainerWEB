@@ -94,5 +94,11 @@ namespace ETrainerWEB.Services
             _db.DishesIngredients.Remove(dishIngredient);
             return await _db.SaveChangesAsync() > 0;
         }
+        public async Task<double> GetAmount(int dishId,int ingredientId)
+        {
+            var amount = await _db.DishesIngredients.Where(w => w.Dish.Id == dishId && w.Ingredient.Id == ingredientId)
+                .Select(e => e.Amount).FirstOrDefaultAsync();
+            return amount;
+        }
     }
 }

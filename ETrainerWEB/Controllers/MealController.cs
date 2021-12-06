@@ -89,5 +89,14 @@ namespace ETrainerWEB.Controllers
                 return Ok();
             return NotFound();
         }
+        //Get amount for mealDish 
+        [HttpGet()]
+        public async Task<IActionResult> MealDish([FromQuery] int mealId,int dishId)
+        {
+            var result = await _mealService.GetAmount(mealId,dishId);
+            if (result != 0)
+                return Ok(result);
+            return NotFound();
+        }
     }
 }
