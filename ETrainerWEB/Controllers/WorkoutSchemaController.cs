@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ETrainerWEB.Models;
 using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;

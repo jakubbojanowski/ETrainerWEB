@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 namespace ETrainerWEB.Models
 {
     public class DishesIngredients

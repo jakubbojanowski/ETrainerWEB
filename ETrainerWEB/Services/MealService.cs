@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ETrainerWEB.Data;
@@ -95,12 +94,5 @@ namespace ETrainerWEB.Services
             _db.MealsDishes.Remove(mealDish);
             return await _db.SaveChangesAsync() > 0;
         }
-        /*public async Task<bool> GetDishCaloricity(int dishId)
-        {
-            var mealDish = await _db.MealsDishes.FirstOrDefaultAsync(e => e.Meal.Id ==mealId && e.Dish.Id == dishId);
-            if (mealDish == null) return false;
-            _db.MealsDishes.Remove(mealDish);
-            return await _db.SaveChangesAsync() > 0;
-        }*/
     }
 }

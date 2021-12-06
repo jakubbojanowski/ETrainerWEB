@@ -15,7 +15,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-
 namespace ETrainerWEB
 {
     public class Startup
@@ -37,8 +36,6 @@ namespace ETrainerWEB
             services.AddScoped<PropertyCopierService<Exercise>>();
             services.AddScoped<PropertyCopierService<ExerciseSchema>>();
             services.AddScoped<PropertyCopierService<WorkoutSchema>>();
-            services.AddScoped<PropertyCopierService<User>>();
-            services.AddScoped<PropertyCopierService<Measurement>>();
             services.AddScoped<PropertyCopierService<Meal>>();
             services.AddScoped<PropertyCopierService<Dish>>();
             services.AddScoped<PropertyCopierService<Ingredient>>();

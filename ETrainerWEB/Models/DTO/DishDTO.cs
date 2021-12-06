@@ -7,8 +7,8 @@ namespace ETrainerWEB.Models.DTO
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        public float PortionWeight { set; get; }
-        public float CaloricityPerGram { set; get; }
+        public double PortionWeight { set; get; }
+        public double CaloricityPerGram { set; get; }
         [JsonIgnore]
         public User User { set; get; }
         [JsonIgnore]

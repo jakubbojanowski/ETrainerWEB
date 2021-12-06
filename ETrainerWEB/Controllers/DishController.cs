@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using ETrainerWEB.Models;
+﻿using System.Threading.Tasks;
 using ETrainerWEB.Models.DTO;
 using ETrainerWEB.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +12,6 @@ namespace ETrainerWEB.Controllers
     public class DishController : ControllerBase
     {
         private readonly DishService _dishService;
-
         public DishController(DishService dishService)
         {
             _dishService = dishService;
@@ -28,7 +25,6 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-
         //Add new dish
         [HttpPost]
         public async Task<IActionResult> Dish([FromBody] DishDTO dishDTO)
@@ -38,7 +34,6 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-
         //Edit dish
         [HttpPut]
         public async Task<IActionResult> EditDish([FromBody] DishDTO dishDTO)
@@ -48,7 +43,6 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-
         //Delete dish
         [HttpDelete("{dishId:int}")]
         public async Task<IActionResult> Dish([FromRoute] int dishId)
@@ -58,7 +52,6 @@ namespace ETrainerWEB.Controllers
                 return Ok();
             return NotFound();
         }
-
         //Get ingredients for dish 
         [HttpGet("{dishId:int}")]
         public async Task<IActionResult> Ingredients([FromRoute] int dishId)
@@ -68,7 +61,6 @@ namespace ETrainerWEB.Controllers
                 return Ok(result);
             return NotFound();
         }
-
         //Add ingredient to dish
         [HttpPost]
         public async Task<IActionResult> AddIngredient([FromBody] DishesIngredientsDTO dishIngredientsDTO)
@@ -78,7 +70,6 @@ namespace ETrainerWEB.Controllers
                 return Ok();
             return NotFound();
         }
-
         //Edit ingredient amount
         [HttpPut]
         public async Task<IActionResult> EditDishIngredient([FromBody] DishesIngredientsDTO dishesIngredientsDTO)
@@ -88,7 +79,6 @@ namespace ETrainerWEB.Controllers
                 return Ok();
             return NotFound();
         }
-
         //Delete ingredient from dish
         [HttpDelete]
         public async Task<IActionResult> DeleteIngredient([FromQuery] int dishId,int ingredientId)

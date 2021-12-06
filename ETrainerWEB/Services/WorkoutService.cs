@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ETrainerWEB.Data;
@@ -12,19 +13,18 @@ namespace ETrainerWEB.Services
     public class WorkoutService
     {
         private readonly ETrainerDbContext _db;
-        private readonly PropertyCopierService<Workout> _propertyCopier;
         private readonly AutomapperService _automapper;
         private readonly string _userId;
-        public WorkoutService(ETrainerDbContext db,PropertyCopierService<Workout> propertyCopierService,AutomapperService automapperService,IHttpContextAccessor httpContextAccessor)
+        public WorkoutService(ETrainerDbContext db,AutomapperService automapperService,IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
-            _propertyCopier = propertyCopierService;
             _automapper = automapperService;
             _userId  = _db.Users.Where(e => e.UserName == httpContextAccessor.HttpContext.User.Identity.Name).Select(r => r.Id).FirstOrDefault();
         }
         public async Task<WorkoutDTO> GetWorkoutByDate(DateTime date)
         {
             if (string.IsNullOrEmpty(_userId)) return null;
+            //var workout = await _db.Users.Where(e => e.Id == _userId).SelectMany(e => e.Workouts).Where(e=>e.Date.Date==date.Date).Include(e=>e.Exercises).FirstOrDefaultAsync();
             var workout = await _db.Workouts.Where(e => e.User.Id == _userId && e.Date.Date == date.Date).Include(s => s.Exercises).FirstOrDefaultAsync();
             var workoutsDTO = _automapper.Mapper.Map<Workout, WorkoutDTO>(workout);
             return workoutsDTO;

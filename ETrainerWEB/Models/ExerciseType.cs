@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace ETrainerWEB.Models
 {
     public class ExerciseType
@@ -10,5 +9,4 @@ namespace ETrainerWEB.Models
         public string Icon { set; get; }
         public string Properties { set; get; }
     }
-    
 }

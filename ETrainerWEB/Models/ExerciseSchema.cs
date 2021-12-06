@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace ETrainerWEB.Models
 {
@@ -14,6 +13,6 @@ namespace ETrainerWEB.Models
         public string Icon { set; get; }
         public string Properties { set; get; }
         public User User { set; get; }
-        public virtual ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
+        public ICollection<WorkoutSchemaExerciseSchema> WorkoutSchemasExercisesSchemas { get; set; }
     }
 }

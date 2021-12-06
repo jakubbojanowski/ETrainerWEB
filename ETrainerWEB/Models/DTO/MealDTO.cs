@@ -9,6 +9,7 @@ namespace ETrainerWEB.Models.DTO
         public int Id { set; get; }
         public DateTime Date { set; get; }
         public string Name { set; get; }
+        public double CaloricityPerGram { set; get; }
         [JsonIgnore]
         public User User { set; get; }
         [JsonIgnore]

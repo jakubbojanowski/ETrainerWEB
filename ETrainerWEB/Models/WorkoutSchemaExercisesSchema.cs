@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-
+﻿
 namespace ETrainerWEB.Models
 {
     public class WorkoutSchemaExerciseSchema

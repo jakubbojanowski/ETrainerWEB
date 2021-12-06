@@ -21,8 +21,8 @@ namespace ETrainerWEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Workout([FromQuery]DateTime date)
         {
-            var result = await _workoutService.GetWorkoutByDate(date);
-            if(result != null)
+            var result  = await _workoutService.GetWorkoutByDate(date);
+            if(result != null) 
                 return Ok(result);
             return NotFound();
         }
@@ -38,9 +38,9 @@ namespace ETrainerWEB.Controllers
         //Add new workout
         [HttpPost]
         public async Task<IActionResult> Workout([FromBody] WorkoutDTO workout)
-        { 
+        {
             var result = await _workoutService.AddWorkout(workout);
-            if(result != 0) 
+            if (result != 0)
                 return Ok(result);
             return NotFound();
         }

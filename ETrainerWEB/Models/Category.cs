@@ -3,10 +3,11 @@
     public enum Category
     {
         Kardio,
-        Klatkaa_piersiowa,
+        Klatka_piersiowa,
+        Brzuch,
         Plecy,
-        Ramiona,
-        Nogi
+        Nogi,
+        Ogólne,
+        Własne
     }
-    
 }

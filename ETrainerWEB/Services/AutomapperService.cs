@@ -9,34 +9,21 @@ namespace ETrainerWEB.Services
         public readonly IMapper Mapper;
         public AutomapperService()
         {
-            var configuration = new MapperConfiguration(cfg => 
+            var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Workout, WorkoutDTO>();
-                cfg.CreateMap<WorkoutDTO, Workout>();
-                cfg.CreateMap<Exercise, ExerciseDTO>();
-                cfg.CreateMap<ExerciseDTO, Exercise>();
-                cfg.CreateMap<ExerciseType, ExerciseTypeDTO>();
-                cfg.CreateMap<ExerciseTypeDTO, ExerciseType>();
-                cfg.CreateMap<ExerciseSchema, ExerciseSchemaDTO>();
-                cfg.CreateMap<ExerciseSchemaDTO, ExerciseSchema>();
-                cfg.CreateMap<WorkoutSchema, WorkoutSchemaDTO>();
-                cfg.CreateMap<WorkoutSchemaDTO, WorkoutSchema>();
-                cfg.CreateMap<WorkoutSchemaExerciseSchema, WorkoutSchemaExerciseSchemaDTO>();
-                cfg.CreateMap<WorkoutSchemaExerciseSchemaDTO, WorkoutSchemaExerciseSchema>();
-                cfg.CreateMap<User, UserDTO>();
-                cfg.CreateMap<UserDTO, User>();
-                cfg.CreateMap<Measurement, MeasurementDTO>();
-                cfg.CreateMap<MeasurementDTO, Measurement>(); 
-                cfg.CreateMap<Meal, MealDTO>();
-                cfg.CreateMap<MealDTO, Meal>();
-                cfg.CreateMap<Dish, DishDTO>();
-                cfg.CreateMap<DishDTO, Dish>();
-                cfg.CreateMap<MealsDishes, MealsDishesDTO>();
-                cfg.CreateMap<MealsDishesDTO, MealsDishes>(); 
-                cfg.CreateMap<Ingredient, IngredientDTO>();
-                cfg.CreateMap<IngredientDTO, Ingredient>();
-                cfg.CreateMap<DishesIngredients, DishesIngredientsDTO>();
-                cfg.CreateMap<DishesIngredientsDTO, DishesIngredients>();
+                cfg.CreateMap<Workout, WorkoutDTO>().ReverseMap();
+                cfg.CreateMap<Exercise, ExerciseDTO>().ReverseMap();
+                cfg.CreateMap<ExerciseType, ExerciseTypeDTO>().ReverseMap();
+                cfg.CreateMap<ExerciseSchema, ExerciseSchemaDTO>().ReverseMap();
+                cfg.CreateMap<WorkoutSchema, WorkoutSchemaDTO>().ReverseMap();
+                cfg.CreateMap<WorkoutSchemaExerciseSchema, WorkoutSchemaExerciseSchemaDTO>().ReverseMap();
+                cfg.CreateMap<User, UserDTO>().ReverseMap();
+                cfg.CreateMap<Measurement, MeasurementDTO>().ReverseMap();
+                cfg.CreateMap<Meal, MealDTO>().ReverseMap();
+                cfg.CreateMap<Dish, DishDTO>().ReverseMap();
+                cfg.CreateMap<MealsDishes, MealsDishesDTO>().ReverseMap();
+                cfg.CreateMap<Ingredient, IngredientDTO>().ReverseMap();
+                cfg.CreateMap<DishesIngredients, DishesIngredientsDTO>().ReverseMap();
             });
             Mapper = configuration.CreateMapper();
         }
