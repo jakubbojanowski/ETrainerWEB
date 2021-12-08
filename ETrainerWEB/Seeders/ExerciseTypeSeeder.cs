@@ -14,7 +14,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "run",
                     Category = Category.Kardio,
                     Name = "Bieganie",
-                    Properties = "{\"Dystans\":\"1\",\"Czas\":\"6\"}"
+                    Properties = "{\"Dystans[km]\":\"1\",\"Czas[min]\":\"6\"}"
                 },
                 new ExerciseType()
                 {
@@ -22,7 +22,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "dumbbell",
                     Category = Category.Klatka_piersiowa,
                     Name = "Wyciskanie sztangi",
-                    Properties = "{\"Ciężar\":\"50\",\"Liczba powtórzeń\":\"8\",\"Liczba serii\":\"5\"}"
+                    Properties = "{\"Ciężar[kg]\":\"50\",\"Liczba powtórzeń\":\"8\",\"Liczba serii\":\"5\"}"
                 },
                 new ExerciseType()
                 {
@@ -30,7 +30,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "skate",
                     Category = Category.Kardio,
                     Name = "Jazda na łyżwach",
-                    Properties = "{\"Czas\":\"30\"}"
+                    Properties = "{\"Czas[min]\":\"30\"}"
                 },
                 new ExerciseType()
                 {
@@ -38,7 +38,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "swim",
                     Category = Category.Kardio,
                     Name = "Pływanie",
-                    Properties = "{\"Czas\":\"20\",\"Liczba basenów\":\"10\"}"
+                    Properties = "{\"Czas[min]\":\"20\",\"Liczba basenów\":\"10\"}"
                 },
                 new ExerciseType()
                 {
@@ -46,7 +46,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "run-fast",
                     Category = Category.Kardio,
                     Name = "Bieganie interwałowe",
-                    Properties = "{\"Czas sprintu\":\"1\",\"Czas odpoczynku\":\"1\",\"Liczba powtórzeń\":\"10\"}"
+                    Properties = "{\"Czas sprintu[min]\":\"1\",\"Czas odpoczynku[min]\":\"1\",\"Liczba powtórzeń\":\"10\"}"
                 },
                 new ExerciseType()
                 {
@@ -54,7 +54,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "yoga",
                     Category = Category.Ogólne,
                     Name = "Rozgrzewka",
-                    Properties = "{\"Czas\":\"10\"}"
+                    Properties = "{\"Czas[min]\":\"10\"}"
                 },
                 new ExerciseType()
                 {
@@ -62,7 +62,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "walk",
                     Category = Category.Ogólne,
                     Name = "Marsz",
-                    Properties = "{\"Czas\":\"30\",\"Dystans\":\"2.5\"}"
+                    Properties = "{\"Czas[min]\":\"30\",\"Dystans[km]\":\"2.5\"}"
                 },
                 new ExerciseType()
                 {
@@ -70,7 +70,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "weight-lifter",
                     Category = Category.Nogi,
                     Name = "Przysiady ze sztangą",
-                    Properties = "{\"Ciężar\":\"40\",\"Liczba powtórzeń\":\"5\",\"Liczba serii\":\"3\"}"
+                    Properties = "{\"Ciężar[kg]\":\"40\",\"Liczba powtórzeń\":\"5\",\"Liczba serii\":\"3\"}"
                 },
                 new ExerciseType()
                 {
@@ -78,7 +78,7 @@ namespace ETrainerWEB.Seeders
                     Icon = "yoga",
                     Category = Category.Ogólne,
                     Name = "Rozciąganie",
-                    Properties = "{\"Czas\":\"15\"}"
+                    Properties = "{\"Czas[min]\":\"15\"}"
                 },
                 new ExerciseType()
                 {
@@ -117,7 +117,7 @@ namespace ETrainerWEB.Seeders
                     Id = 15,
                     Icon = "plus-circle",
                     Category = Category.Własne,
-                    Name = "Nazwa ćwiczenia",
+                    Name = "",
                     Properties = "{}"
                 }
             );

@@ -40,6 +40,7 @@ namespace ETrainerWEB.Services
             var exercise = await _db.Exercises.FirstOrDefaultAsync(e => e.Id == exerciseDTO.Id);
             if (exercise == null) return false;
             var updatedExercise = _automapper.Mapper.Map<ExerciseDTO, Exercise>(exerciseDTO);
+            updatedExercise.WorkoutId = exerciseDTO.CurrentWorkoutId;
             _propertyCopier.Copy(updatedExercise,exercise);
             return await _db.SaveChangesAsync() > 0;
         }

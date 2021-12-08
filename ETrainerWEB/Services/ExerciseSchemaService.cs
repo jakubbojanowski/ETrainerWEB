@@ -33,7 +33,7 @@ namespace ETrainerWEB.Services
         {
             if (string.IsNullOrEmpty(_userId)) return 0;
             exerciseSchemaDTO.User = await _db.Users.FirstOrDefaultAsync(e => e.Id == _userId);
-            var exist = await _db.ExerciseSchemas.FirstOrDefaultAsync(c => c.User.Id == _userId && (c.Name == exerciseSchemaDTO.Name || c.Properties == exerciseSchemaDTO.Properties));
+            var exist = await _db.ExerciseSchemas.FirstOrDefaultAsync(c => c.User.Id == _userId && c.Name == exerciseSchemaDTO.Name && c.Properties == exerciseSchemaDTO.Properties);
             if (exist != null) return 0;
             var exerciseSchema = _automapper.Mapper.Map<ExerciseSchemaDTO,ExerciseSchema>(exerciseSchemaDTO);
             await _db.ExerciseSchemas.AddAsync(exerciseSchema);
